@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Backoffice operativo de TrackFlow para visualizar almacenes, envíos y alertas.">
+  <title>TrackFlow Ops | Backoffice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#153B3A',
+            teal: '#2BA8A2',
+            tealDark: '#1E8C86',
+            mist: '#E8F6F5',
+            gold: '#FFD23F',
+            cream: '#FFF8E7',
+            coral: '#EF6C4A',
+            paper: '#F5F8F7'
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 12px 34px rgba(21, 59, 58, .08)',
+            lift: '0 18px 42px rgba(43, 168, 162, .16)'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #153b3a;
+      --teal: #2ba8a2;
+      --teal-dark: #1e8c86;
+      --mist: #e8f6f5;
+      --gold: #ffd23f;
+      --cream: #fff8e7;
+      --coral: #ef6c4a;
+      --paper: #f5f8f7;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+    .app-shell { min-height: 100vh; background: linear-gradient(135deg, #f5f8f7 0%, #eef8f6 55%, #fff8e7 100%); }
+    .sidebar-link { transition: color .2s ease, background .2s ease, transform .2s ease; }
+    .sidebar-link:hover { color: var(--teal-dark); background: rgba(232, 246, 245, .8); transform: translateX(3px); }
+    .sidebar-link.active { color: var(--ink); background: var(--gold); box-shadow: 4px 4px 0 rgba(43, 168, 162, .35); }
+    .metric-card { animation: rise-in .5s ease both; }
+    .metric-card:nth-child(2) { animation-delay: .08s; }
+    .metric-card:nth-child(3) { animation-delay: .16s; }
+    .metric-card:nth-child(4) { animation-delay: .24s; }
+    .line-grid { background-image: linear-gradient(rgba(43, 168, 162, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 168, 162, .08) 1px, transparent 1px); background-size: 26px 26px; }
+    .status-dot { width: 9px; height: 9px; border-radius: 999px; background: var(--teal); box-shadow: 0 0 0 4px rgba(43, 168, 162, .14); }
+    .status-dot.coral { background: var(--coral); box-shadow: 0 0 0 4px rgba(239, 108, 74, .14); }
+    .status-dot.gold { background: var(--gold); box-shadow: 0 0 0 4px rgba(255, 210, 63, .2); }
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: block; }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="app-shell lg:flex">
+    <aside class="hidden min-h-screen w-72 shrink-0 border-r border-ink/10 bg-white/85 px-5 py-6 lg:flex lg:flex-col" aria-label="Navegación del backoffice">
+      <a href="#inicio" class="flex items-center gap-3 px-2" aria-label="TrackFlow Ops inicio">
+        <span class="grid h-11 w-11 place-items-center rounded-xl border-2 border-ink bg-gold font-display text-sm font-bold shadow-[4px_4px_0_var(--teal)]">TF</span>
+        <span class="font-display text-lg font-bold tracking-wide">TRACK<span class="text-coral">FLOW</span><span class="ml-1 text-xs font-semibold text-ink/50">OPS</span></span>
+      </a>
+      <div class="mt-12 px-3 text-[11px] font-bold uppercase tracking-[.18em] text-ink/45">Workspace</div>
+      <nav class="mt-3 space-y-2 text-sm font-semibold">
+        <a class="sidebar-link active flex items-center gap-3 rounded-xl px-3 py-3" href="#dashboard"><span aria-hidden="true">◈</span>Resumen operativo</a>
+        <a class="sidebar-link flex items-center gap-3 rounded-xl px-3 py-3 text-ink/65" href="#warehouses"><span aria-hidden="true">▦</span>Almacenes</a>
+        <a class="sidebar-link flex items-center gap-3 rounded-xl px-3 py-3 text-ink/65" href="#shipments"><span aria-hidden="true">↗</span>Envíos</a>
+        <a class="sidebar-link flex items-center gap-3 rounded-xl px-3 py-3 text-ink/65" href="#alerts"><span aria-hidden="true">!</span>Incidencias <span class="ml-auto rounded-full bg-coral/10 px-2 py-1 text-[10px] text-coral">3</span></a>
+      </nav>
+      <div class="mt-auto rounded-2xl border border-teal/20 bg-mist p-4">
+        <p class="text-xs font-bold uppercase tracking-[.14em] text-tealDark">TrackFlow Tech</p>
+        <p class="mt-3 text-sm font-semibold leading-6">Visibilidad para los hubs de Los Ángeles y Zaragoza.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs font-bold text-tealDark"><span class="status-dot"></span> Entorno demo activo</div>
+      </div>
+    </aside>
+
+    <main id="inicio" class="min-w-0 flex-1">
+      <header class="sticky top-0 z-20 border-b border-ink/10 bg-white/80 backdrop-blur-xl">
+        <div class="flex items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
+          <div class="flex items-center gap-3">
+            <button id="menu-toggle" class="grid h-10 w-10 place-items-center rounded-xl border border-ink/15 bg-white text-lg lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">☰</button>
+            <div><p class="text-xs font-bold uppercase tracking-[.16em] text-tealDark">Backoffice</p><p class="font-display text-lg font-bold">Resumen operativo</p></div>
+          </div>
+          <div class="flex items-center gap-3"><span class="hidden rounded-full border border-teal/20 bg-mist px-3 py-2 text-xs font-bold text-tealDark sm:inline-flex"><span class="mr-2 inline-block h-2 w-2 rounded-full bg-teal"></span>Demo · Datos de ejemplo</span><button class="grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-white font-bold" aria-label="Notificaciones">⌁</button><div class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-sm font-bold text-gold" aria-label="Perfil de Ana Whitfield">AW</div></div>
+        </div>
+        <nav id="mobile-menu" class="mobile-menu border-t border-ink/10 bg-white px-5 py-4 lg:hidden" aria-label="Navegación móvil"><div class="grid gap-2 text-sm font-semibold"><a class="rounded-lg bg-gold px-3 py-2" href="#dashboard">Resumen operativo</a><a class="rounded-lg px-3 py-2" href="#warehouses">Almacenes</a><a class="rounded-lg px-3 py-2" href="#shipments">Envíos</a><a class="rounded-lg px-3 py-2" href="#alerts">Incidencias</a></div></nav>
+      </header>
+
+      <div class="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
+        <section id="dashboard" class="line-grid overflow-hidden rounded-[26px] border border-teal/15 bg-white/75 p-6 shadow-soft sm:p-8 lg:p-10" aria-labelledby="welcome-title">
+          <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <div class="max-w-2xl"><span class="inline-flex rounded-full border border-coral/20 bg-coral/10 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-coral">Lunes · 12 octubre 2026</span><h1 id="welcome-title" class="mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">Buenos días, Ana. <span class="text-tealDark">La operación empieza aquí.</span></h1><p class="mt-4 max-w-xl text-base leading-7 text-ink/65">Una primera lectura de los dos almacenes de TrackFlow, preparada para convertir señales dispersas en decisiones operativas.</p></div>
+            <div class="rounded-2xl border border-ink/10 bg-white p-5 shadow-sm lg:max-w-xs"><div class="flex items-center gap-3"><span class="status-dot"></span><p class="text-sm font-bold">Sistema en modo demostración</p></div><p class="mt-3 text-xs leading-5 text-ink/60">Las métricas visibles son ejemplos del briefing de TrackFlow. No provienen aún de una API conectada.</p></div>
+          </div>
+        </section>
+
+        <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Indicadores principales">
+          <article class="metric-card rounded-2xl border border-teal/15 border-l-4 border-l-teal bg-white p-5 shadow-soft"><div class="flex items-start justify-between"><span class="grid h-10 w-10 place-items-center rounded-xl bg-mist text-xl text-tealDark">⌂</span><span class="rounded-full bg-mist px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-tealDark">Contexto</span></div><p class="mt-6 text-sm font-semibold text-ink/55">Almacenes activos</p><p class="mt-1 font-display text-4xl font-bold">2</p><p class="mt-2 text-xs font-semibold text-tealDark">Los Ángeles · Zaragoza</p></article>
+          <article class="metric-card rounded-2xl border border-gold/25 border-l-4 border-l-gold bg-white p-5 shadow-soft"><div class="flex items-start justify-between"><span class="grid h-10 w-10 place-items-center rounded-xl bg-cream text-xl text-[#896d00]">↗</span><span class="rounded-full bg-cream px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#896d00]">Red</span></div><p class="mt-6 text-sm font-semibold text-ink/55">Transportistas</p><p class="mt-1 font-display text-4xl font-bold">8</p><p class="mt-2 text-xs font-semibold text-[#896d00]">Cobertura en dos países</p></article>
+          <article class="metric-card rounded-2xl border border-coral/20 border-l-4 border-l-coral bg-white p-5 shadow-soft"><div class="flex items-start justify-between"><span class="grid h-10 w-10 place-items-center rounded-xl bg-coral/10 text-xl text-coral">↺</span><span class="rounded-full bg-coral/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-coral">Volumen</span></div><p class="mt-6 text-sm font-semibold text-ink/55">Devoluciones</p><p class="mt-1 font-display text-4xl font-bold">18–25%</p><p class="mt-2 text-xs font-semibold text-coral">Según cliente y país</p></article>
+          <article class="metric-card rounded-2xl border border-teal/15 border-l-4 border-l-teal bg-white p-5 shadow-soft"><div class="flex items-start justify-between"><span class="grid h-10 w-10 place-items-center rounded-xl bg-mist text-xl text-tealDark">◎</span><span class="rounded-full bg-mist px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-tealDark">Equipo</span></div><p class="mt-6 text-sm font-semibold text-ink/55">Operarios de almacén</p><p class="mt-1 font-display text-4xl font-bold">~70</p><p class="mt-2 text-xs font-semibold text-tealDark">Supervisados por Ana Whitfield</p></article>
+        </section>
+
+        <section class="mt-8 grid gap-6 xl:grid-cols-[1.35fr_.65fr]">
+          <article id="warehouses" class="rounded-2xl border border-ink/10 bg-white p-6 shadow-soft sm:p-7"><div class="flex flex-wrap items-start justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[.16em] text-tealDark">Red de almacenes</p><h2 class="mt-2 text-2xl font-bold">Lectura por hub</h2></div><span class="rounded-full bg-gold/25 px-3 py-1 text-xs font-bold text-[#755c00]">Datos de ejemplo</span></div><div class="mt-6 overflow-x-auto"><table class="w-full min-w-[560px] border-collapse text-left text-sm"><thead><tr class="border-b border-ink/10 text-xs uppercase tracking-wider text-ink/45"><th class="pb-3 font-bold">Ubicación</th><th class="pb-3 font-bold">Sistema</th><th class="pb-3 font-bold">Estado</th><th class="pb-3 text-right font-bold">Visibilidad</th></tr></thead><tbody><tr class="border-b border-ink/10"><td class="py-5"><div class="flex items-center gap-3"><span class="status-dot"></span><div><p class="font-bold">Los Ángeles</p><p class="text-xs text-ink/50">Estados Unidos</p></div></div></td><td class="py-5 text-ink/65">WMS comercial</td><td class="py-5"><span class="rounded-full bg-teal/10 px-3 py-1 text-xs font-bold text-tealDark">Operativo</span></td><td class="py-5 text-right font-bold text-coral">Fragmentada</td></tr><tr><td class="py-5"><div class="flex items-center gap-3"><span class="status-dot gold"></span><div><p class="font-bold">Zaragoza</p><p class="text-xs text-ink/50">España</p></div></div></td><td class="py-5 text-ink/65">Hoja de cálculo avanzada</td><td class="py-5"><span class="rounded-full bg-gold/25 px-3 py-1 text-xs font-bold text-[#755c00]">Operativo</span></td><td class="py-5 text-right font-bold text-coral">Fragmentada</td></tr></tbody></table></div><div class="mt-5 rounded-xl border border-dashed border-coral/30 bg-coral/5 p-4 text-sm font-semibold text-coral">Siguiente oportunidad: unificar la visibilidad de inventario por SKU entre los dos almacenes.</div></article>
+
+          <article id="alerts" class="rounded-2xl border border-ink/10 bg-ink p-6 text-white shadow-soft sm:p-7"><div class="flex items-start justify-between"><div><p class="text-xs font-bold uppercase tracking-[.16em] text-gold">Atención</p><h2 class="mt-2 text-2xl font-bold">Señales pendientes</h2></div><span class="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-xl text-gold">!</span></div><div class="mt-7 space-y-5"><div class="flex gap-3"><span class="status-dot coral mt-1 shrink-0"></span><div><p class="text-sm font-bold">Inventario sin vista global</p><p class="mt-1 text-xs leading-5 text-white/60">Los dos sistemas de almacén aún no comparten stock.</p></div></div><div class="flex gap-3"><span class="status-dot gold mt-1 shrink-0"></span><div><p class="text-sm font-bold">Rendimiento por transportista</p><p class="mt-1 text-xs leading-5 text-white/60">Pendiente de histórico centralizado de puntualidad y coste.</p></div></div><div class="flex gap-3"><span class="status-dot coral mt-1 shrink-0"></span><div><p class="text-sm font-bold">Devoluciones bajo revisión humana</p><p class="mt-1 text-xs leading-5 text-white/60">El volumen estimado se sitúa entre 18% y 25%.</p></div></div></div><button class="mt-8 w-full rounded-xl border border-white/20 px-4 py-3 text-sm font-bold text-white/75 transition hover:border-gold hover:text-gold" type="button" id="empty-action">Conectar fuente de datos <span aria-hidden="true">→</span></button></article>
+        </section>
+
+        <section id="shipments" class="mt-8 grid gap-6 lg:grid-cols-2">
+          <article class="rounded-2xl border border-ink/10 bg-white p-6 shadow-soft sm:p-7"><div class="flex items-start justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[.16em] text-tealDark">Próximo módulo</p><h2 class="mt-2 text-2xl font-bold">Envíos y última milla</h2></div><span class="rounded-full bg-ink/5 px-3 py-1 text-xs font-bold text-ink/50">Sin conectar</span></div><div class="mt-8 grid min-h-32 place-items-center rounded-xl border-2 border-dashed border-ink/10 bg-paper p-6 text-center"><div><div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-mist text-xl text-tealDark">↗</div><p class="mt-3 text-sm font-bold">Aquí aparecerán los envíos activos</p><p class="mt-1 text-xs text-ink/50">El agregador de transportistas todavía no está implementado.</p></div></div></article>
+          <article class="rounded-2xl border border-ink/10 bg-white p-6 shadow-soft sm:p-7"><div class="flex items-start justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[.16em] text-coral">Actividad reciente</p><h2 class="mt-2 text-2xl font-bold">Timeline operativo</h2></div><span class="rounded-full bg-coral/10 px-3 py-1 text-xs font-bold text-coral">Vacío</span></div><div class="mt-8 grid min-h-32 place-items-center rounded-xl border-2 border-dashed border-coral/20 bg-coral/5 p-6 text-center"><div><div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-xl text-coral">+</div><p class="mt-3 text-sm font-bold">Sin eventos registrados</p><p class="mt-1 text-xs text-ink/50">La actividad se activará al conectar operaciones reales.</p></div></div></article>
+        </section>
+
+        <footer class="mt-10 flex flex-col justify-between gap-3 border-t border-ink/10 pt-5 text-xs font-semibold text-ink/45 sm:flex-row"><p>TrackFlow Ops · Skeleton de backoffice</p><p>Fuente: CONTEXT.md · Datos demostrativos, no productivos</p></footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const menuToggle = document.querySelector('#menu-toggle');
+    const mobileMenu = document.querySelector('#mobile-menu');
+    const emptyAction = document.querySelector('#empty-action');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }));
+    emptyAction.addEventListener('click', () => {
+      emptyAction.textContent = 'Integración pendiente · sin API conectada';
+    });
+  </script>
+</body>
+</html>

@@ -12,9 +12,26 @@ Organiza `uis/` por **distintas áreas de la compañía** — cada subcarpeta ag
 - **Propósito principal**: centralizar en un único lugar todas las aplicaciones frontend que dan soporte a los casos de uso de la compañía.
 - **Recomendación**: documenta en este archivo (o en sub-READMEs) las aplicaciones que vayas añadiendo, su objetivo, tecnología usada y cómo ejecutarlas.
 
-- **Desplegar la página en el navegador**: 
-    python3 -m http.server 8080
-    npx serve .
+## Iniciar las aplicaciones
+
+Son aplicaciones estáticas independientes. Puedes ejecutarlas desde sus carpetas con puertos distintos:
+
+```bash
+# Web corporativa pública
+cd uis/website
+python3 -m http.server 8080
+# http://localhost:8080
+
+# Backoffice interno, en otra terminal
+cd uis/backoffice
+python3 -m http.server 8081
+# http://localhost:8081
+```
+
+También puedes usar `npx serve .` dentro de cualquiera de las dos carpetas. Consulta el README de cada aplicación para sus detalles:
+
+- [`website/README.es.md`](./website/README.es.md)
+- [`backoffice/README.es.md`](./backoffice/README.es.md)
 
 
 > _These instructions are also available in [English](./README.md)._

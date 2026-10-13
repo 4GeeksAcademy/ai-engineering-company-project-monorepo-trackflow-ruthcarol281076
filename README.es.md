@@ -85,6 +85,22 @@ Lee el `README.md` enlazado dentro de cada carpeta antes de empezar a programar 
 
 → Ver [`uis/README.md`](./uis/README.md)
 
+**Arranque local de las interfaces:**
+
+```bash
+# Web corporativa pública
+cd uis/website
+python3 -m http.server 8080
+# http://localhost:8080
+
+# Backoffice interno, en otra terminal
+cd uis/backoffice
+python3 -m http.server 8081
+# http://localhost:8081
+```
+
+Consulta [`uis/website/README.es.md`](./uis/website/README.es.md) y [`uis/backoffice/README.es.md`](./uis/backoffice/README.es.md) para conocer el alcance de cada aplicación.
+
 ### `services/` — API centralizada de la empresa (FastAPI)
 
 **Propósito:** Un **backend FastAPI centralizado** para toda la empresa — un solo punto de entrada que reduce la complejidad a medida que crece el proyecto.
