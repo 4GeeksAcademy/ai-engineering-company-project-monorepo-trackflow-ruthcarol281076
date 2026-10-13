@@ -1,39 +1,31 @@
 # TrackFlow Backoffice
 
-Aplicación interna inicial para visualizar la operación de TrackFlow. Esta primera versión es un skeleton estático: separa el layout del backoffice de la web pública y deja preparados los espacios para conectar inventario, envíos, incidencias y actividad operativa.
+Initial internal application for monitoring TrackFlow operations. This first version is a static skeleton: it has its own backoffice layout, separate from the public website, and prepares spaces for inventory, shipments, incidents, and operational activity.
 
-## Qué incluye
+## Included
 
-- Vista de entrada en `/` con bienvenida contextual para operaciones.
-- Navegación propia de backoffice, independiente de `uis/website/`.
-- Tarjetas de métricas y tabla de almacenes con datos demostrativos tomados de `CONTEXT.md`.
-- Estados vacíos para envíos y timeline, sin API ni persistencia.
-- Responsive layout para escritorio y móvil.
-- Tailwind CSS por CDN y estilos CSS locales para variables, animaciones y estados.
+- Entry route at `/` with an operations-focused welcome view.
+- Dedicated backoffice navigation, independent from `uis/website/`.
+- Metric cards and a warehouse table with sample data taken from `CONTEXT.md`.
+- Empty states for shipments and the activity timeline, with no API or persistence yet.
+- Responsive layout for desktop and mobile.
+- Tailwind CSS via CDN and local CSS styles for variables, animations, and states.
 
-## Ejecutar localmente
+## Run locally
 
-Desde esta carpeta:
-
-```bash
-python3 -m http.server 8080
-```
-
-Después abre `http://localhost:8080` en el navegador.
-
-Si la web corporativa ya está usando el puerto `8080`, inicia el backoffice en otro puerto:
+From this folder:
 
 ```bash
 python3 -m http.server 8081
 ```
 
-En ese caso, abre `http://localhost:8081`.
+Open `http://localhost:8081` in your browser. Port `8080` is reserved for the corporate website.
 
-## Próximos pasos
+## Next steps
 
-- Conectar una API bajo `services/` para inventario y envíos.
-- Sustituir los datos demostrativos por respuestas tipadas.
-- Añadir autenticación y autorización por área o cliente.
-- Incorporar pruebas de accesibilidad y comportamiento responsive.
+- Connect an API under `services/` for inventory and shipments.
+- Replace sample data with typed API responses.
+- Add authentication and authorization by area or client.
+- Add accessibility and responsive behavior tests.
 
-Los datos visibles en esta versión son demostrativos y no representan datos operativos reales.
+The data displayed in this version is demonstrative and does not represent real operational data.

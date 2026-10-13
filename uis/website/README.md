@@ -25,6 +25,15 @@ Open `http://localhost:8080` in your browser.
 
 You can also run `npx serve .` from `uis/website`.
 
+## Official ports
+
+| Application | Port | URL |
+| --- | ---: | --- |
+| Corporate website | `8080` | `http://localhost:8080` |
+| Backoffice | `8081` | `http://localhost:8081` |
+
+The backoffice must run on `8081` when both applications are running simultaneously.
+
 ## Backoffice relationship
 
 This is the public application. The internal dashboard lives in [`../backoffice/`](../backoffice/) and has its own layout and startup process.

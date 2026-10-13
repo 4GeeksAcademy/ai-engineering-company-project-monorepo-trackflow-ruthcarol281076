@@ -16,18 +16,10 @@ Aplicación interna inicial para visualizar la operación de TrackFlow. Esta pri
 Desde esta carpeta:
 
 ```bash
-python3 -m http.server 8080
-```
-
-Después abre `http://localhost:8080` en el navegador.
-
-Si la web corporativa ya está usando el puerto `8080`, inicia el backoffice en otro puerto:
-
-```bash
 python3 -m http.server 8081
 ```
 
-En ese caso, abre `http://localhost:8081`.
+Después abre `http://localhost:8081` en el navegador. El puerto `8080` queda reservado para la web corporativa.
 
 ## Próximos pasos
 
