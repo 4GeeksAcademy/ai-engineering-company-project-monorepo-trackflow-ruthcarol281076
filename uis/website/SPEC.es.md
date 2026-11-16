@@ -31,7 +31,9 @@ Esta especificación reúne el briefing de TrackFlow y los requisitos del hito. 
 
 ### 2.2 Idioma y contenido
 
-Toda la experiencia incluida en esta entrega —landing, formulario, validaciones, advertencias, éxito y navegación— debe estar en español. El inglés es una mejora opcional, no un requisito de aceptación.
+La experiencia debe estar completa en español e inglés. El español es el idioma editorial de referencia y el idioma inicial; el inglés debe ser una traducción fiel, no una sustitución del contenido requerido en español. Ambas páginas (`index.html` y `application.html`) deben ofrecer un selector visible de idioma con banderas de España y Estados Unidos acompañadas por las etiquetas textuales «Español» y «English». El selector debe ser accesible por teclado y tecnologías de asistencia, actualizar el atributo `lang` del documento y mantener el idioma elegido al navegar entre landing y formulario. La preferencia puede persistirse localmente solo como configuración de idioma; no se deben guardar datos del formulario.
+
+Todos los textos de ambas páginas forman parte del alcance bilingüe: navegación, títulos, contenido comercial, campos y opciones, instrucciones, botones, validaciones, contador, advertencia/modal, confirmación de éxito, privacidad, avisos de simulación y footer. No se permite dejar contenido funcional o mensajes en un solo idioma al cambiar de idioma. Los nombres y valores internos de los controles deben permanecer estables para no alterar validación ni reglas de negocio.
 
 La landing conserva las secciones y el contenido corporativo definidos en `BRIEFING.es.md`: encabezado, hero, tres servicios, cobertura de dos países, cuatro beneficios, contacto y pie. Puede contener secciones demostrativas adicionales, siempre que no sustituyan ni contradigan el contenido comercial requerido y que se identifiquen con honestidad como simulaciones.
 
@@ -40,6 +42,8 @@ La landing conserva las secciones y el contenido corporativo definidos en `BRIEF
 ### RF-01 — Landing y navegación
 
 - Presentar el nombre o logo TrackFlow y navegación clara a Inicio, Servicios, Cobertura y Contacto.
+- Mantener exactamente esas cuatro opciones y en ese orden en la navegación principal de escritorio y móvil. Las secciones de demostración adicionales permanecen disponibles, pero no se añaden como opciones primarias; se distribuyen con sentido entre los bloques principales sin alterar el orden Inicio → Servicios → Cobertura → Contacto.
+- Incluir un favicon SVG local, coherente con la marca TrackFlow, tanto en la landing como en el formulario.
 - Mostrar el titular «Logística que escala con tu e-commerce», el subtítulo establecido en el briefing y una llamada «Solicitar información» que navegue a `application.html`.
 - Presentar en este orden de lectura: servicios, cobertura, beneficios, contacto y footer. Los tres servicios deben incluir todos los puntos descriptivos del briefing; cobertura debe indicar almacén, alcance y transportistas para Estados Unidos y España.
 - Presentar los cuatro beneficios del briefing: operación binacional, +130 profesionales, tecnología propia y especialización e-commerce.
@@ -68,6 +72,21 @@ La landing conserva las secciones y el contenido corporativo definidos en `BRIEF
 - Documentar y comprobar un comando compatible con Codespaces para servir la web localmente mediante `npx`.
 - Para la evaluación externa, exponer el puerto del servidor como **Public** y proporcionar la URL accesible. La configuración de permisos/port forwarding es un paso manual del entorno, no una función del frontend.
 
+### RF-05 — Selector de idioma y localización completa
+
+- Ofrecer en `index.html` y `application.html` un selector Español/English con banderas 🇪🇸 y 🇺🇸, siempre acompañadas por los nombres de idioma visibles y accesibles; la bandera no puede ser el único nombre del control.
+- El español es el idioma inicial y la fuente editorial. Cada página debe permitir cambiar de idioma sin navegar a una página inexistente; la selección debe aplicarse a todo el contenido y a cada estado interactivo.
+- Mantener el idioma seleccionado al navegar entre landing y formulario. Se permite `localStorage` únicamente para guardar la preferencia de idioma, nunca valores, comentarios ni otros datos del formulario. Sin preferencia válida, usar español.
+- Cambiar `document.documentElement.lang` a `es` o `en` de acuerdo con el idioma visible. Asegurar nombres accesibles de botones, estados y controles también localizados.
+- Traducir el contenido completo, incluidos navegación, hero, servicios, cobertura, beneficios, contacto, formulario, opciones, etiquetas, instrucciones, errores, progreso, contador, modal, privacidad, avisos, éxito y footer. Conservar exactamente los contratos de validación y el significado de negocio; los valores de `name`/`value` no dependen del idioma.
+- El marcado SEO/Schema.org debe seguir válido y coherente con el idioma inicial español; incluir metadatos alternativos por idioma solo si pueden implementarse correctamente sin inventar URLs públicas.
+
+### RF-06 — Identidad visual compartida entre páginas
+
+- El header y el footer de `application.html` deben conservar una apariencia visual equivalente a los de `index.html`: identidad de marca, paleta, tipografía, tratamiento de logo, fondos, bordes, espaciado, alineación, estados interactivos y comportamiento responsive coherentes.
+- La equivalencia es visual y de sistema de diseño, no obliga a duplicar la misma estructura o navegación: el header del formulario puede mantener una navegación contextual de retorno, y el footer puede contener el contenido apropiado para esa página. No se deben eliminar ni reemplazar elementos requeridos para hacer idéntico el markup.
+- El selector de idioma requerido debe integrarse en el header de ambas páginas sin romper esa coherencia visual ni la usabilidad móvil.
+
 ## 4. Criterios de aceptación verificables
 
 Los criterios se identifican para poder vincular revisiones manuales o pruebas automatizadas. «Automatizable» indica que el comportamiento puede probarse en navegador o con validación estática; el procedimiento externo se marca manual.
@@ -77,6 +96,7 @@ Los criterios se identifican para poder vincular revisiones manuales o pruebas a
 - [ ] `index.html` y `application.html` tienen `doctype`, `lang="es"`, metadatos de viewport, títulos únicos y una jerarquía de encabezados lógica.
 - [ ] La landing usa regiones semánticas (`header`, `nav`, `main`, `section`, `article` cuando corresponda y `footer`) y contiene todas las secciones y los textos/datos obligatorios de RF-01. **Automatizable + revisión de contenido.**
 - [ ] Cada enlace de navegación apunta a un destino existente; el CTA de solicitud abre `application.html`. **Automatizable.**
+- [ ] El menú principal de escritorio y móvil contiene únicamente Inicio, Servicios, Cobertura y Contacto, en ese orden. Las secciones adicionales se conservan y no interrumpen el orden relativo de esos destinos. Ambas páginas cargan el favicon SVG local. **Automatizable + revisión visual.**
 - [ ] Toda imagen tiene `alt` apropiado y no hay errores de recursos locales. **Automatizable + revisión contextual.**
 - [ ] Cada control del formulario tiene etiqueta asociada; campos relacionados están agrupados y los obligatorios están marcados semánticamente con `required` (o equivalente accesible para grupos). **Automatizable.**
 - [ ] El JSON-LD de la landing se parsea como JSON y coincide con los datos del apartado 5. **Automatizable.**
@@ -107,13 +127,22 @@ Los criterios se identifican para poder vincular revisiones manuales o pruebas a
 - [ ] Un envío válido, tras confirmar si corresponde, oculta/limpia errores y presenta el mensaje de éxito completo del apartado 5. No se afirma que los datos fueron enviados a un servidor.
 - [ ] El botón de limpiar deja el formulario en su estado inicial y permite volver a empezar.
 
-### AC-05 — Coherencia de TrackFlow y entrega
+### AC-05 — Idiomas y selector
+
+- [ ] Ambas páginas presentan selector visible con banderas y etiquetas textuales «Español» y «English»; funciona por teclado y expone nombres accesibles. **Automatizable + revisión manual.**
+- [ ] Al cambiar de idioma, el contenido completo, todos los controles y cada estado dinámico (validación, progreso, contador, modal, privacidad y éxito) aparecen en el idioma elegido; no quedan fragmentos funcionales en el otro idioma. **Pruebas por idioma + revisión de contenido.**
+- [ ] `document.documentElement.lang` coincide con el idioma activo (`es`/`en`); el idioma inicial sin preferencia es español. **Automatizable.**
+- [ ] La selección se conserva entre `index.html` y `application.html`; solo se persiste la preferencia idiomática, nunca los datos del formulario. **Automatizable + inspección de almacenamiento.**
+- [ ] `name` y `value` de los controles, reglas de validación y condición de bajo volumen permanecen estables al alternar idiomas; los contratos de mensajes españoles mantienen coincidencia literal y los mensajes ingleses son equivalentes. **Pruebas automatizables + revisión bilingüe.**
+
+### AC-06 — Coherencia de TrackFlow y entrega
 
 - [ ] Todo el contenido y los campos son específicos de TrackFlow y coherentes con `uis/website/BRIEFING.es.md`; la solicitud se presenta como contacto entre empresas, no como soporte de tracking/consumidor.
 - [ ] Se prueba la página en varios anchos y cada validación del formulario (camino válido e inválido); se revisa la consola del navegador.
 - [ ] La entrega incluye los archivos principales `index.html`, `application.html`, `assets/js/validation.js` y el briefing del website sin modificar.
 - [ ] La descripción del PR incluye URL pública de Codespaces y captura de PageSpeed o Lighthouse con resultado ≥80. Se registra la evidencia real; no se inventa ni se presume.
 - [ ] El código y documentación de la entrega están pusheados al repositorio remoto. El merge a `main` y la publicación dependen del flujo de revisión del PR.
+- [ ] Header y footer de `application.html` mantienen equivalencia visual con `index.html` en escritorio y móvil: tokens de marca y tipografía, logo, colores, fondos, bordes, espaciado, alineación y tratamientos interactivos coherentes; la equivalencia no exige markup ni enlaces idénticos. **Revisión visual comparativa.**
 
 ## 5. Contratos de datos y contenido
 
@@ -234,7 +263,8 @@ Cada fase debe completarse y verificarse antes de iniciar la siguiente.
 
 2. **Landing, contenido y SEO**
    - Alinear secciones, orden, texto, CTA, contacto, footer y elementos visuales con RF-01 y 5.5.
-   - Validar semántica, jerarquía, enlaces, texto alternativo, metadatos y JSON-LD con revisión automatizable y manual.
+  - Usar el header y footer de la landing como referencia del sistema visual compartido y alinear los elementos equivalentes del formulario con RF-06.
+  - Validar semántica, jerarquía, enlaces, texto alternativo, metadatos y JSON-LD con revisión automatizable y manual.
 
 3. **Formulario multipasos y accesibilidad**
    - Implementar pasos, indicador de progreso, navegación anterior/siguiente, persistencia temporal en memoria de los valores, reset y confirmación de bajo volumen.
@@ -257,6 +287,6 @@ Cada fase debe completarse y verificarse antes de iniciar la siguiente.
 
 | Fuente | Requisitos / aceptación |
 |---|---|
-| Briefing del website | RF-01 a RF-03, AC-01, AC-03 a AC-05, apartados 5.1–5.5 |
-| Instrucciones del hito | RF-02 y RF-04, AC-01 a AC-05 (incluye formulario multipasos, reset, ejecución Codespaces y evidencia de rendimiento) |
+| Briefing del website | RF-01 a RF-03, RF-05, AC-01, AC-03 a AC-06, apartados 5.1–5.5 |
+| Instrucciones del hito | RF-02 y RF-04, AC-01 a AC-06 (incluye formulario multipasos, reset, selector bilingüe, ejecución Codespaces y evidencia de rendimiento) |
 | Contexto técnico del repositorio | Apartado 2 y restricciones del apartado 6 (HTML estático, Tailwind CDN, simulación sin backend ni persistencia) |

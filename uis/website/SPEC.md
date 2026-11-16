@@ -31,7 +31,9 @@ This specification combines the TrackFlow brief and milestone requirements. If f
 
 ### 2.2 Language and content
 
-All experience included in this delivery—landing page, form, validation, warnings, success state, and navigation—must be in Spanish. English is an optional enhancement, not an acceptance requirement.
+The complete experience must be available in Spanish and English. Spanish is the editorial reference language and initial language; English must be a faithful translation, not a replacement for the Spanish content requirements. Both pages (`index.html` and `application.html`) must provide a visible language selector with the flags of Spain and the United States accompanied by the text labels “Español” and “English.” The selector must be keyboard- and assistive-technology-accessible, update the document `lang` attribute, and keep the selected language while navigating between the landing page and form. The preference may be stored locally only as a language setting; form data must not be stored.
+
+All text on both pages is in bilingual scope: navigation, headings, commercial content, fields and options, instructions, buttons, validation, counter, warning/modal, success confirmation, privacy, simulation notices, and footer. No functional content or messages may remain in only one language after switching. Internal control names and values must remain stable so they do not alter validation or business rules.
 
 The landing page must retain the sections and corporate content defined in `BRIEFING.es.md`: header, hero, three services, coverage in two countries, four benefits, contact, and footer. It may include additional demonstration sections, provided they do not replace or contradict required commercial content and are honestly identified as simulations.
 
@@ -40,6 +42,8 @@ The landing page must retain the sections and corporate content defined in `BRIE
 ### FR-01 — Landing page and navigation
 
 - Present the TrackFlow name or logo and clear navigation to Home, Services, Coverage, and Contact.
+- Keep exactly those four options, in that order, in the primary desktop and mobile navigation. Additional demo sections remain available but are not added as primary menu options; distribute them logically among the main sections without changing the Home → Services → Coverage → Contact order.
+- Include a local SVG favicon consistent with the TrackFlow brand on both the landing page and inquiry form.
 - Show the headline «Logística que escala con tu e-commerce», the subtitle established in the brief, and a «Solicitar información» call to action linking to `application.html`.
 - Present the following in reading order: services, coverage, benefits, contact, and footer. The three services must include every descriptive point in the brief; coverage must specify warehouse, reach, and carriers for the United States and Spain.
 - Present the four benefits in the brief: binational operations, +130 professionals, proprietary technology, and e-commerce specialization.
@@ -68,6 +72,21 @@ The landing page must retain the sections and corporate content defined in `BRIE
 - Document and verify a Codespaces-compatible command to serve the website locally using `npx`.
 - For external evaluation, expose the server port as **Public** and provide the accessible URL. Configuring permissions/port forwarding is a manual environment step, not a frontend feature.
 
+### FR-05 — Language selector and complete localization
+
+- Provide a Spanish/English selector on `index.html` and `application.html`, with 🇪🇸 and 🇺🇸 flags always accompanied by visible, accessible language names; a flag alone is not an accessible name.
+- Spanish is the initial language and editorial source. Each page must allow switching languages without navigating to a missing page; the selected language applies to all content and interactive states.
+- Preserve the selected language when navigating between the landing page and form. `localStorage` may be used only to store the language preference, never form values, comments, or other form data. Default to Spanish if no valid preference exists.
+- Set `document.documentElement.lang` to `es` or `en` to match the visible language. Accessible names for buttons, states, and controls must also be localized.
+- Translate all content, including navigation, hero, services, coverage, benefits, contact, form, options, labels, instructions, errors, progress, counter, modal, privacy, notices, success, and footer. Preserve validation contracts and business meaning; control `name`/`value` attributes must not depend on language.
+- Keep SEO/Schema.org markup valid and consistent with Spanish as the initial language; add alternate-language metadata only if it can be implemented correctly without inventing public URLs.
+
+### FR-06 — Shared visual identity across pages
+
+- The header and footer on `application.html` must remain visually equivalent to those on `index.html`: consistent brand identity, palette, typography, logo treatment, backgrounds, borders, spacing, alignment, interactive states, and responsive behavior.
+- Equivalence is visual and design-system-level; it does not require identical structure or navigation. The form header may retain contextual back navigation, and its footer may contain page-appropriate content. Do not remove or replace required elements merely to duplicate markup.
+- Integrate the required language selector into both page headers without breaking visual consistency or mobile usability.
+
 ## 4. Verifiable acceptance criteria
 
 Criteria are identified so they can be linked to manual reviews or automated tests. «Automatable» indicates behavior that can be tested in a browser or with static validation; external procedures are marked manual.
@@ -77,6 +96,7 @@ Criteria are identified so they can be linked to manual reviews or automated tes
 - [ ] `index.html` and `application.html` have a doctype, `lang="es"`, viewport metadata, unique titles, and a logical heading hierarchy.
 - [ ] The landing page uses semantic regions (`header`, `nav`, `main`, `section`, `article` where appropriate, and `footer`) and contains all sections and required text/data in FR-01. **Automatable + content review.**
 - [ ] Every navigation link points to an existing destination; the inquiry CTA opens `application.html`. **Automatable.**
+- [ ] Desktop and mobile primary navigation contain only Home, Services, Coverage, and Contact, in that order. Additional sections are preserved without disrupting the relative order of those destinations. Both pages load the local SVG favicon. **Automatable + visual review.**
 - [ ] Every image has appropriate `alt` text and there are no local resource errors. **Automatable + contextual review.**
 - [ ] Every form control has an associated label; related fields are grouped and required fields are semantically marked with `required` (or an accessible equivalent for groups). **Automatable.**
 - [ ] The landing page JSON-LD parses as JSON and matches the data in section 5. **Automatable.**
@@ -107,13 +127,22 @@ Criteria are identified so they can be linked to manual reviews or automated tes
 - [ ] A valid submission, after confirmation if applicable, hides/clears errors and displays the complete success message from section 5. It does not claim that data was sent to a server.
 - [ ] The clear button restores the form to its initial state and allows the user to start over.
 
-### AC-05 — TrackFlow context and delivery
+### AC-05 — Languages and selector
+
+- [ ] Both pages show a visible selector with flags and the text labels “Español” and “English”; it works by keyboard and has accessible names. **Automatable + manual review.**
+- [ ] When switching languages, all content, controls, and dynamic states (validation, progress, counter, modal, privacy, and success) appear in the selected language; no functional fragments remain in the other language. **Per-language tests + content review.**
+- [ ] `document.documentElement.lang` matches the active language (`es`/`en`); the initial language without a preference is Spanish. **Automatable.**
+- [ ] The selection is preserved between `index.html` and `application.html`; only the language preference is persisted, never form data. **Automatable + storage inspection.**
+- [ ] Control `name` and `value` attributes, validation rules, and low-volume condition remain stable when switching languages; Spanish message contracts retain exact text and English messages are equivalent. **Automated tests + bilingual review.**
+
+### AC-06 — TrackFlow context and delivery
 
 - [ ] All content and fields are specific to TrackFlow and consistent with `uis/website/BRIEFING.es.md`; the inquiry is presented as business-to-business contact, not consumer tracking/support.
 - [ ] Test the page at multiple widths and every form validation (valid and invalid paths); inspect the browser console.
 - [ ] The delivery includes the main files `index.html`, `application.html`, `assets/js/validation.js`, and the website brief, unmodified.
 - [ ] The PR description includes a public Codespaces URL and a PageSpeed or Lighthouse screenshot with a result ≥80. Record actual evidence; do not invent or assume it.
 - [ ] Code and delivery documentation are pushed to the remote repository. Merging to `main` and deployment depend on the PR approval process.
+- [ ] The `application.html` header and footer remain visually equivalent to `index.html` on desktop and mobile: consistent brand and typography tokens, logo, colors, backgrounds, borders, spacing, alignment, and interactive treatments; equivalence does not require identical markup or links. **Comparative visual review.**
 
 ## 5. Data and content contracts
 
@@ -234,6 +263,7 @@ Complete and verify each phase before starting the next.
 
 2. **Landing page, content, and SEO**
    - Align sections, order, text, CTA, contact details, footer, and visual elements with FR-01 and 5.5.
+  - Use the landing page header and footer as the shared visual-system reference and align the equivalent form elements with FR-06.
    - Validate semantics, hierarchy, links, alt text, metadata, and JSON-LD using automated and manual review.
 
 3. **Multi-step form and accessibility**
@@ -257,6 +287,6 @@ Complete and verify each phase before starting the next.
 
 | Source | Requirements / acceptance |
 |---|---|
-| Website brief | FR-01 to FR-03, AC-01, AC-03 to AC-05, sections 5.1–5.5 |
-| Milestone instructions | FR-02 and FR-04, AC-01 to AC-05 (including multi-step form, reset, Codespaces run method, and performance evidence) |
+| Website brief | FR-01 to FR-03, FR-05, AC-01, AC-03 to AC-06, sections 5.1–5.5 |
+| Milestone instructions | FR-02 and FR-04, AC-01 to AC-06 (including multi-step form, reset, bilingual selector, Codespaces run method, and performance evidence) |
 | Repository technical context | Section 2 and constraints in section 6 (static HTML, Tailwind CDN, simulated behavior without backend or persistence) |

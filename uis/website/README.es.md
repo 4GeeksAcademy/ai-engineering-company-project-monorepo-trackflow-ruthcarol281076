@@ -5,7 +5,9 @@ Landing pública de TrackFlow para presentar sus servicios de logística de últ
 ## Qué incluye
 
 - Página de entrada en `/` con la identidad corporativa de TrackFlow.
-- Secciones de servicios, cobertura por país, beneficios, operación, gestión ejecutiva, seguimiento, testimonios y contacto. Las secciones previas se conservan.
+- Navegación principal en el orden del briefing: Inicio, Servicios, Cobertura y Contacto. Las demostraciones de operación y gestión se intercalan entre Servicios y Cobertura; el seguimiento, los testimonios y los beneficios se mantienen antes de Contacto para conservar un recorrido equilibrado sin perder contenido.
+- Favicon SVG local (`assets/favicon.svg`) compartido por la landing y el formulario.
+- Secciones de servicios, cobertura por país, beneficios, operación, gestión ejecutiva, seguimiento, testimonios y contacto.
 - Simulación local de tracking, acceso de clientes y registro.
 - Formulario de solicitud comercial en `application.html` con datos de empresa, persona de contacto, email, teléfono, website, mercado, producto, volumen, servicios, proveedor logístico actual, comentarios y aceptación de privacidad.
 - Validación en JavaScript nativo, mensajes por campo, contador de 500 caracteres y confirmación de bajo volumen (0-100 envíos/mes).

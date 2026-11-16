@@ -5,7 +5,9 @@ TrackFlow's public landing page presenting its last-mile logistics services, war
 ## Included
 
 - Entry page at `/` with TrackFlow corporate identity.
-- Services, country coverage, benefits, operations, executive management, tracking, testimonials, and contact sections. Existing sections are preserved.
+- Primary navigation follows the briefing's order: Home, Services, Coverage, and Contact. Operations and management demonstrations are interleaved between Services and Coverage; tracking, testimonials, and benefits remain before Contact for a balanced journey without removing content.
+- Local SVG favicon (`assets/favicon.svg`) shared by the landing page and inquiry form.
+- Services, country coverage, benefits, operations, executive management, tracking, testimonials, and contact sections.
 - Local simulations for tracking, customer login, and registration.
 - Commercial inquiry form in `application.html` for company/contact details, email, phone, website, markets, product, shipment volume, services, current logistics provider, comments, and privacy consent.
 - Native JavaScript validation, field-level messages, a 500-character counter, and a low-volume (0-100 shipments/month) confirmation warning.
