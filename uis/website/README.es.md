@@ -8,9 +8,13 @@ Landing pública de TrackFlow para presentar sus servicios de logística de últ
 - Secciones de servicios, operación, seguimiento y contacto.
 - Simulación local de tracking, acceso de clientes y registro.
 - Formulario de contacto en `application.html`.
+- Imagen WebP local en el panel derecho de la sección de contacto (`assets/images/contacto.webp`).
+- Avisos visuales que aparecen solo al enviar un formulario o realizar una interacción demostrativa.
+- Modal de acceso y registro con foco inicial, navegación de foco por teclado, cierre con `Escape` y devolución del foco al elemento que lo abrió.
 - Tailwind CSS por CDN y estilos CSS locales.
 
 Las interacciones de login, registro, contacto y tracking son simulaciones: no existe autenticación, persistencia ni API conectada.
+Los avisos (`toast`) permanecen ocultos hasta que una interacción necesita comunicar un resultado. El modal de acceso se puede usar con teclado; mientras está abierto, el foco permanece dentro de él.
 
 ## Ejecutar localmente
 

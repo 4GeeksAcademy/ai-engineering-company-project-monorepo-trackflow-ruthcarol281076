@@ -50,8 +50,8 @@
     .gold-btn:hover::before { transform: translateX(105%) skewX(-18deg); }
     .gold-btn > * { position: relative; z-index: 1; }
     .card { background: white; border-radius: 24px; box-shadow: var(--shadow-card); border-left: 3px solid var(--primary-teal); }
-    .toast { transform: translateY(150%); transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
-    .toast.show { transform: translateY(0); }
+    .toast { visibility: hidden; opacity: 0; translate: 0 150%; transition: translate .35s cubic-bezier(.34,1.56,.64,1), opacity .2s ease, visibility 0s linear .35s; }
+    .toast.show { visibility: visible; opacity: 1; translate: 0 0; transition-delay: 0s; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
   </style>
 </head>
@@ -108,7 +108,7 @@
     </div>
   </footer>
 
-  <div id="toast" class="toast fixed bottom-5 left-1/2 z-[60] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-2xl border-2 border-[var(--ink)] bg-white p-4 shadow-coral-glow" role="status" aria-live="polite">
+  <div id="toast" class="toast fixed bottom-5 left-1/2 z-[60] w-[calc(100%-2rem)] max-w-md rounded-2xl border-2 border-[var(--ink)] bg-white p-4 shadow-coral-glow" role="status" aria-live="polite" aria-hidden="true">
     <div class="flex items-center gap-3">
       <span id="toast-icon" class="grid h-9 w-9 place-items-center rounded-full bg-[var(--accent-light)] font-extrabold text-[#775d00]">✓</span>
       <p id="toast-message" class="text-sm font-bold"></p>
@@ -121,9 +121,14 @@
       $('#toast-message').textContent = message;
       $('#toast-icon').textContent = error ? '!' : '✓';
       $('#toast-icon').className = `grid h-9 w-9 place-items-center rounded-full ${error ? 'bg-coralbrand/15 text-coralbrand' : 'bg-[var(--accent-light)] text-[#775d00]'} font-extrabold`;
-      $('#toast').classList.add('show');
+      const toastElement = $('#toast');
+      toastElement.setAttribute('aria-hidden', 'false');
+      toastElement.classList.add('show');
       window.clearTimeout(window.toastTimer);
-      window.toastTimer = window.setTimeout(() => $('#toast').classList.remove('show'), 4200);
+      window.toastTimer = window.setTimeout(() => {
+        toastElement.classList.remove('show');
+        toastElement.setAttribute('aria-hidden', 'true');
+      }, 4200);
     };
 
     const contactForm = $('#contact-form');
