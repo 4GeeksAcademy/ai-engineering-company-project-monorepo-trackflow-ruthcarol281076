@@ -5,15 +5,17 @@ Landing pública de TrackFlow para presentar sus servicios de logística de últ
 ## Qué incluye
 
 - Página de entrada en `/` con la identidad corporativa de TrackFlow.
-- Secciones de servicios, operación, seguimiento y contacto.
+- Secciones de servicios, cobertura por país, beneficios, operación, gestión ejecutiva, seguimiento, testimonios y contacto. Las secciones previas se conservan.
 - Simulación local de tracking, acceso de clientes y registro.
-- Formulario de contacto en `application.html`.
+- Formulario de solicitud comercial en `application.html` con datos de empresa, persona de contacto, email, teléfono, website, mercado, producto, volumen, servicios, proveedor logístico actual, comentarios y aceptación de privacidad.
+- Validación en JavaScript nativo, mensajes por campo, contador de 500 caracteres y confirmación de bajo volumen (0-100 envíos/mes).
+- Marcado Schema.org `Organization`, metadatos SEO y enlaces de contacto corporativo en la landing.
 - Imagen WebP local en el panel derecho de la sección de contacto (`assets/images/contacto.webp`).
 - Avisos visuales que aparecen solo al enviar un formulario o realizar una interacción demostrativa.
 - Modal de acceso y registro con foco inicial, navegación de foco por teclado, cierre con `Escape` y devolución del foco al elemento que lo abrió.
 - Tailwind CSS por CDN y estilos CSS locales.
 
-Las interacciones de login, registro, contacto y tracking son simulaciones: no existe autenticación, persistencia ni API conectada.
+Las interacciones de login, registro, solicitud comercial y tracking son simulaciones: no existe autenticación, persistencia ni API conectada. El formulario no transmite ni almacena los datos introducidos.
 Los avisos (`toast`) permanecen ocultos hasta que una interacción necesita comunicar un resultado. El modal de acceso se puede usar con teclado; mientras está abierto, el foco permanece dentro de él.
 
 ## Ejecutar localmente

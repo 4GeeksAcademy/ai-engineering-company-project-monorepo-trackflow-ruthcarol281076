@@ -3,145 +3,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Formulario de contacto de TrackFlow para marcas de ecommerce que operan entre Los Ángeles y Zaragoza.">
-  <title>TrackFlow | Application</title>
+  <meta name="description" content="Solicita información comercial de TrackFlow. Cuéntanos sobre tu empresa, productos, volumen y necesidades logísticas.">
+  <link rel="canonical" href="https://trackflow.com/application.html">
+  <title>Solicitar información | TrackFlow</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            tealbrand: 'var(--primary-teal)',
-            'primary-teal': 'var(--primary-teal)',
-            'primary-light': 'var(--primary-light)',
-            'primary-dark': 'var(--primary-dark)',
-            'primary-bg': 'var(--primary-bg)',
-            goldbrand: 'var(--accent-gold)',
-            'accent-light': 'var(--accent-light)',
-            coralbrand: 'var(--coral)',
-            'coral-light': 'var(--coral-light)'
-          },
-          boxShadow: {
-            card: 'var(--shadow-card)',
-            'teal-glow': 'var(--shadow-teal-glow)',
-            'coral-glow': 'var(--shadow-coral-glow)',
-            'accent-glow': 'var(--shadow-accent-glow)'
-          }
-        }
-      }
-    };
-  </script>
   <style>
-    :root {
-      --primary-teal: #2BA8A2; --primary-light: #3CC4BD; --primary-dark: #1E8C86; --primary-bg: #E8F6F5;
-      --accent-gold: #FFD23F; --accent-light: #FFE47A; --accent-dark: #E6B800;
-      --coral: #EF6C4A; --coral-light: #FF8A6A; --coral-dark: #D45233; --cream: #FFF8E7; --sky-focus: #5DADE2;
-      --ink: #153B3A; --shadow-card: 0 4px 20px rgba(43, 168, 162, .10); --shadow-teal-glow: 0 4px 20px rgba(43, 168, 162, .30);
-      --shadow-coral-glow: 0 4px 20px rgba(239, 108, 74, .35); --shadow-accent-glow: 0 4px 20px rgba(255, 210, 63, .40);
-    }
-    html { scroll-behavior: smooth; }
-    body { color: var(--ink); background: linear-gradient(180deg, #e8f6f5 0%, #f5fffe 100%); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    .field { background: var(--cream); border: 2px solid transparent; transition: box-shadow .2s ease, border-color .2s ease; }
-    .field:focus { outline: none; border-color: var(--sky-focus); box-shadow: 0 0 0 4px rgba(93,173,226,.25); }
-    .pill-btn { min-height: 48px; border-radius: 999px; transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease; }
-    .pill-btn:hover { transform: translateY(-3px) scale(1.02); }
-    .gold-btn { position: relative; overflow: hidden; background: var(--accent-gold); color: #493d0b; box-shadow: var(--shadow-accent-glow); }
-    .gold-btn::before { content: ''; position: absolute; inset: 0 0 55%; background: rgba(255,255,255,.38); transform: translateX(-105%) skewX(-18deg); transition: transform .5s ease; }
-    .gold-btn:hover::before { transform: translateX(105%) skewX(-18deg); }
-    .gold-btn > * { position: relative; z-index: 1; }
-    .card { background: white; border-radius: 24px; box-shadow: var(--shadow-card); border-left: 3px solid var(--primary-teal); }
-    .toast { visibility: hidden; opacity: 0; translate: 0 150%; transition: translate .35s cubic-bezier(.34,1.56,.64,1), opacity .2s ease, visibility 0s linear .35s; }
-    .toast.show { visibility: visible; opacity: 1; translate: 0 0; transition-delay: 0s; }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+    :root { --primary-teal:#2BA8A2; --primary-dark:#1E8C86; --primary-bg:#E8F6F5; --accent-gold:#FFD23F; --coral:#EF6C4A; --cream:#FFF8E7; --sky-focus:#5DADE2; --ink:#153B3A; --shadow-card:0 4px 20px rgba(43,168,162,.1); }
+    html { scroll-behavior:smooth; }
+    body { color:var(--ink); background:linear-gradient(180deg,#e8f6f5 0%,#f5fffe 100%); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+    .field { background:var(--cream); border:2px solid #d9e5e3; transition:box-shadow .2s ease,border-color .2s ease; }
+    .field:focus { outline:none; border-color:var(--sky-focus); box-shadow:0 0 0 4px rgba(93,173,226,.25); }
+    .pill-btn { min-height:48px; border-radius:999px; transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease; }
+    .pill-btn:hover { transform:translateY(-2px); }
+    .gold-btn { background:linear-gradient(135deg,#FFD23F,#E6B800); color:#493d0b; box-shadow:0 4px 20px rgba(255,210,63,.4); }
+    .card { background:white; border-radius:24px; box-shadow:var(--shadow-card); border-left:3px solid var(--primary-teal); }
+    .error-message { color:#b42318; }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; } }
   </style>
 </head>
 <body>
-  <header class="sticky top-0 z-30 border-b-2 border-tealbrand/15 bg-white/90 backdrop-blur-md">
-    <div class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 lg:px-8">
-      <a href="index.html" class="flex items-center gap-2 text-xl font-extrabold tracking-wider text-primary-dark" aria-label="TrackFlow inicio">
-        <span class="grid h-10 w-10 place-items-center rounded-xl border-2 border-[var(--ink)] bg-goldbrand text-lg shadow-[4px_4px_0_var(--primary-teal)]">TF</span>
-        <span>TRACK<span class="text-coralbrand">FLOW</span></span>
-      </a>
-      <a href="index.html#contacto" class="pill-btn border-2 border-primary-dark px-5 pt-3 font-extrabold text-primary-dark hover:bg-white">Volver a la landing</a>
-    </div>
-  </header>
-
-  <main class="mx-auto flex max-w-5xl items-center px-5 py-14 lg:px-8 lg:py-20">
-    <section class="grid w-full gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
-      <div>
-        <span class="inline-flex rounded-full bg-[var(--primary-bg)] px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-primary-dark">Formulario de contacto</span>
-        <h1 class="mt-5 text-4xl font-extrabold tracking-wider text-primary-dark sm:text-5xl">Cuéntale a TrackFlow cómo operas.</h1>
-        <p class="mt-6 max-w-xl text-lg font-medium leading-8 text-[var(--ink)]/75">Usa esta página para enviar tu solicitud comercial. El mensaje llega al equipo de TrackFlow con el mismo estilo visual de la landing, pero en una vista dedicada.</p>
-        <div class="mt-8 space-y-3 text-sm font-semibold text-[var(--ink)]/75">
-          <p>Los Ángeles · Zaragoza</p>
-          <p>Operación para marcas ecommerce transfronterizas</p>
-          <p>Respuesta en un día laborable</p>
-        </div>
+  <header class="sticky top-0 z-30 border-b border-teal-900/10 bg-white/90 backdrop-blur-md"><div class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 lg:px-8"><a href="index.html" class="flex items-center gap-2 text-xl font-extrabold tracking-wider text-[#1E8C86]" aria-label="TrackFlow, inicio"><span class="grid h-10 w-10 place-items-center rounded-xl border-2 border-[#153B3A] bg-[#FFD23F] text-lg">TF</span><span>TRACK<span class="text-[#EF6C4A]">FLOW</span></span></a><a href="index.html#contacto" class="pill-btn border-2 border-[#1E8C86] px-5 pt-3 font-extrabold text-[#1E8C86]">Volver a la landing</a></div></header>
+  <main class="mx-auto max-w-5xl px-5 py-12 lg:px-8 lg:py-16">
+    <div class="mb-8 max-w-3xl"><span class="inline-flex rounded-full bg-[#E8F6F5] px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-[#1E8C86]">Solicitud comercial</span><h1 class="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-[#1E8C86] sm:text-5xl">Cuéntanos sobre tu operación logística</h1><p class="mt-5 text-lg leading-8 text-[#153B3A]/75">Este formulario está pensado para empresas de e-commerce que buscan externalizar su logística. Comparte algunos datos para que nuestro equipo comercial pueda valorar tus necesidades.</p></div>
+    <form id="contact-form" class="card p-6 sm:p-9" novalidate>
+      <div id="form-errors" class="mb-6 hidden rounded-2xl border border-red-300 bg-red-50 p-4 text-sm" role="alert" aria-live="assertive"></div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div><label class="mb-2 block text-sm font-extrabold" for="company">Nombre de la empresa <span aria-hidden="true">*</span></label><input class="field min-h-12 w-full rounded-2xl px-4" id="company" name="company" type="text" autocomplete="organization" required minlength="2" aria-describedby="error-company"><p id="error-company" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="contact-name">Persona de contacto <span aria-hidden="true">*</span></label><input class="field min-h-12 w-full rounded-2xl px-4" id="contact-name" name="contactName" type="text" autocomplete="name" required aria-describedby="error-contact-name"><p id="error-contact-name" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="email">Email corporativo <span aria-hidden="true">*</span></label><input class="field min-h-12 w-full rounded-2xl px-4" id="email" name="email" type="email" autocomplete="email" required aria-describedby="error-email"><p id="error-email" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="phone">Teléfono <span aria-hidden="true">*</span></label><input class="field min-h-12 w-full rounded-2xl px-4" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 213 555 0147" required aria-describedby="error-phone"><p id="error-phone" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="website">Sitio web de la empresa <span class="font-medium opacity-60">(opcional)</span></label><input class="field min-h-12 w-full rounded-2xl px-4" id="website" name="website" type="url" autocomplete="url" placeholder="https://empresa.com" aria-describedby="error-website"><p id="error-website" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="country">País de operación principal <span aria-hidden="true">*</span></label><select class="field min-h-12 w-full rounded-2xl px-4" id="country" name="country" required aria-describedby="error-country"><option value="">Selecciona una opción</option><option>Estados Unidos</option><option>España</option><option>Ambos</option><option>Otro</option></select><p id="error-country" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="product">Tipo de producto <span aria-hidden="true">*</span></label><select class="field min-h-12 w-full rounded-2xl px-4" id="product" name="product" required aria-describedby="error-product"><option value="">Selecciona una opción</option><option>Moda</option><option>Electrónica</option><option>Cosmética</option><option>Alimentación</option><option>Otro</option></select><p id="error-product" class="error-message mt-1 text-sm" hidden></p></div>
+        <div><label class="mb-2 block text-sm font-extrabold" for="volume">Volumen mensual estimado de envíos <span aria-hidden="true">*</span></label><select class="field min-h-12 w-full rounded-2xl px-4" id="volume" name="volume" required aria-describedby="error-volume"><option value="">Selecciona una opción</option><option value="0-100">0-100</option><option>101-500</option><option>501-2000</option><option>2000+</option><option>No estoy seguro</option></select><p id="error-volume" class="error-message mt-1 text-sm" hidden></p></div>
+        <fieldset class="sm:col-span-2" aria-describedby="error-services"><legend class="mb-3 text-sm font-extrabold">Servicios de interés <span aria-hidden="true">*</span></legend><div class="grid gap-3 sm:grid-cols-3"><label class="flex items-center gap-3 rounded-xl bg-[#FFF8E7] p-3"><input type="checkbox" name="services" value="Almacenaje" class="h-5 w-5 accent-[#2BA8A2]">Almacenaje</label><label class="flex items-center gap-3 rounded-xl bg-[#FFF8E7] p-3"><input type="checkbox" name="services" value="Última milla" class="h-5 w-5 accent-[#2BA8A2]">Última milla</label><label class="flex items-center gap-3 rounded-xl bg-[#FFF8E7] p-3"><input type="checkbox" name="services" value="Logística inversa" class="h-5 w-5 accent-[#2BA8A2]">Logística inversa</label></div><p id="error-services" class="error-message mt-1 text-sm" tabindex="-1" hidden></p></fieldset>
+        <fieldset class="sm:col-span-2" aria-describedby="error-current3pl"><legend class="mb-3 text-sm font-extrabold">¿Actualmente trabajas con otro 3PL? <span aria-hidden="true">*</span></legend><div class="flex flex-wrap gap-x-6 gap-y-3"><label class="flex items-center gap-2"><input type="radio" name="current3pl" value="Sí" class="h-5 w-5 accent-[#2BA8A2]">Sí</label><label class="flex items-center gap-2"><input type="radio" name="current3pl" value="No" class="h-5 w-5 accent-[#2BA8A2]">No</label><label class="flex items-center gap-2"><input type="radio" name="current3pl" value="Estoy evaluando opciones" class="h-5 w-5 accent-[#2BA8A2]">Estoy evaluando opciones</label></div><p id="error-current3pl" class="error-message mt-1 text-sm" tabindex="-1" hidden></p></fieldset>
+        <div class="sm:col-span-2"><label class="mb-2 block text-sm font-extrabold" for="comments">Comentarios o necesidades específicas <span class="font-medium opacity-60">(opcional)</span></label><textarea class="field min-h-36 w-full rounded-2xl px-4 py-3" id="comments" name="comments" maxlength="500" aria-describedby="comments-count error-comments"></textarea><div class="mt-1 flex justify-between text-sm"><p id="error-comments" class="error-message" hidden></p><p id="comments-count" aria-live="polite">0/500 caracteres</p></div></div>
+        <div class="sm:col-span-2"><label class="flex items-start gap-3 text-sm leading-6"><input id="privacy" name="privacy" type="checkbox" required class="mt-1 h-5 w-5 shrink-0 accent-[#2BA8A2]" aria-describedby="error-privacy"><span>Acepto la <a href="#politica-privacidad" class="font-bold text-[#1E8C86] underline">política de privacidad</a> <span aria-hidden="true">*</span></span></label><p id="error-privacy" class="error-message mt-1 text-sm" hidden></p><p id="politica-privacidad" class="mt-2 text-xs leading-5 opacity-65">La solicitud se simula en este prototipo: no se transmite ni almacena información.</p></div>
       </div>
-
-      <form id="contact-form" class="card p-6 sm:p-8" novalidate>
-        <p class="text-sm font-extrabold uppercase tracking-wider text-coralbrand">Aplicación TrackFlow</p>
-        <h2 class="mt-2 text-2xl font-extrabold tracking-wider text-primary-dark">Formulario de contacto</h2>
-        <div class="mt-7 grid gap-5 sm:grid-cols-2">
-          <div class="sm:col-span-1">
-            <label class="mb-2 block text-sm font-extrabold" for="contact-name">Nombre</label>
-            <input id="contact-name" class="field min-h-12 w-full rounded-2xl px-4" type="text" required>
-          </div>
-          <div class="sm:col-span-1">
-            <label class="mb-2 block text-sm font-extrabold" for="contact-email">Correo electrónico</label>
-            <input id="contact-email" class="field min-h-12 w-full rounded-2xl px-4" type="email" required>
-          </div>
-          <div class="sm:col-span-2">
-            <label class="mb-2 block text-sm font-extrabold" for="contact-message">Mensaje</label>
-            <textarea id="contact-message" class="field min-h-36 w-full rounded-2xl px-4 py-3" required></textarea>
-          </div>
-        </div>
-        <button class="pill-btn gold-btn mt-7 w-full px-6 font-extrabold sm:w-auto"><span>Enviar solicitud</span><span aria-hidden="true">→</span></button>
-      </form>
-    </section>
+      <div id="low-volume-warning" class="mt-6 hidden rounded-2xl border-2 border-[#EF6C4A]/50 bg-[#fff3ee] p-4 text-sm font-semibold text-[#8d321c]" role="alert">Para volúmenes menores a 100 envíos mensuales, nuestros servicios podrían no ser la solución más eficiente. ¿Seguro que quieres continuar?</div>
+      <button type="submit" class="pill-btn gold-btn mt-7 inline-flex items-center gap-3 px-7 font-extrabold"><span>Enviar solicitud</span><span aria-hidden="true">→</span></button>
+      <div id="success-message" class="mt-6 hidden rounded-2xl border-2 border-[#2BA8A2]/40 bg-[#E8F6F5] p-5 leading-7" role="status" aria-live="polite" tabindex="-1"><strong class="block text-lg text-[#1E8C86]">¡Gracias por tu interés en TrackFlow!</strong><span>Hemos recibido tu solicitud. Nuestro equipo comercial revisará tu información y te contactará en las próximas 24-48 horas para agendar una llamada y conocer tus necesidades logísticas en detalle.</span><span class="mt-2 block">Si tienes alguna consulta urgente, escríbenos directamente a <a class="font-bold underline" href="mailto:comercial@trackflow.com">comercial@trackflow.com</a></span></div>
+    </form>
   </main>
-
-  <footer class="border-t-2 border-tealbrand/10 bg-white px-5 py-8 lg:px-8">
-    <div class="mx-auto flex max-w-5xl flex-col gap-3 text-sm font-semibold text-[var(--ink)]/70 sm:flex-row sm:items-center sm:justify-between">
-      <p>© 2026 TrackFlow · Los Ángeles + Zaragoza</p>
-      <p>Formulario dedicado de contacto</p>
-    </div>
-  </footer>
-
-  <div id="toast" class="toast fixed bottom-5 left-1/2 z-[60] w-[calc(100%-2rem)] max-w-md rounded-2xl border-2 border-[var(--ink)] bg-white p-4 shadow-coral-glow" role="status" aria-live="polite" aria-hidden="true">
-    <div class="flex items-center gap-3">
-      <span id="toast-icon" class="grid h-9 w-9 place-items-center rounded-full bg-[var(--accent-light)] font-extrabold text-[#775d00]">✓</span>
-      <p id="toast-message" class="text-sm font-bold"></p>
-    </div>
-  </div>
-
-  <script>
-    const $ = (selector) => document.querySelector(selector);
-    const toast = (message, error = false) => {
-      $('#toast-message').textContent = message;
-      $('#toast-icon').textContent = error ? '!' : '✓';
-      $('#toast-icon').className = `grid h-9 w-9 place-items-center rounded-full ${error ? 'bg-coralbrand/15 text-coralbrand' : 'bg-[var(--accent-light)] text-[#775d00]'} font-extrabold`;
-      const toastElement = $('#toast');
-      toastElement.setAttribute('aria-hidden', 'false');
-      toastElement.classList.add('show');
-      window.clearTimeout(window.toastTimer);
-      window.toastTimer = window.setTimeout(() => {
-        toastElement.classList.remove('show');
-        toastElement.setAttribute('aria-hidden', 'true');
-      }, 4200);
-    };
-
-    const contactForm = $('#contact-form');
-    contactForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
-        toast('Revisa los campos obligatorios.', true);
-        return;
-      }
-      contactForm.reset();
-      toast('Solicitud recibida. El equipo de TrackFlow te responderá pronto.');
-    });
-  </script>
+  <footer class="border-t border-teal-900/10 bg-white px-5 py-8"><div class="mx-auto flex max-w-5xl flex-col gap-3 text-sm font-semibold text-[#153B3A]/70 sm:flex-row sm:items-center sm:justify-between"><p>© 2025 TrackFlow. Todos los derechos reservados.</p><a href="https://linkedin.com/company/trackflow" target="_blank" rel="noopener noreferrer" class="underline">LinkedIn<span class="sr-only"> (se abre en una pestaña nueva)</span></a></div></footer>
+  <script src="assets/js/validation.js" defer></script>
 </body>
 </html>
