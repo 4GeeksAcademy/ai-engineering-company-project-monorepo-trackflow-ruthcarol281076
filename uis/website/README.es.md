@@ -5,20 +5,23 @@ Landing pública de TrackFlow para presentar sus servicios de logística de últ
 ## Qué incluye
 
 - Página de entrada en `/` con la identidad corporativa de TrackFlow.
-- Navegación principal en el orden del briefing: Inicio, Servicios, Cobertura y Contacto. Las demostraciones de operación y gestión se intercalan entre Servicios y Cobertura; el seguimiento, los testimonios y los beneficios se mantienen antes de Contacto para conservar un recorrido equilibrado sin perder contenido.
+- Orden de secciones: Hero, Rastreo, Nosotros, Servicios, Pulso, Gestión, Cobertura, Testimonios y Contacto. La navegación principal enlaza a Nosotros, Servicios, Gestión y Contacto; el logo/nombre vuelve al inicio. Etiquetas localizadas en español e inglés.
 - Favicon SVG local (`assets/favicon.svg`) compartido por la landing y el formulario.
 - Secciones de servicios, cobertura por país, beneficios, operación, gestión ejecutiva, seguimiento, testimonios y contacto.
 - Simulación local de tracking, acceso de clientes y registro.
-- Formulario de solicitud comercial en `application.html` con datos de empresa, persona de contacto, email, teléfono, website, mercado, producto, volumen, servicios, proveedor logístico actual, comentarios y aceptación de privacidad.
-- Validación en JavaScript nativo, mensajes por campo, contador de 500 caracteres y confirmación de bajo volumen (0-100 envíos/mes).
+- Selector Español/English en ambas páginas con iconos locales de banderas descargados de Flaticon (`assets/images/flags/`). Español es el idioma predeterminado; solo se guarda la preferencia `trackflow-language-v1` en `localStorage`. La página atribuye la fuente Flaticon; no se pudieron verificar los metadatos de autoría/licencia del elemento individual.
+- Formulario comercial de tres pasos en `application.html`, con progreso, navegación entre pasos sin perder valores, resumen y validación progresiva de errores.
+- El formulario recoge empresa, persona de contacto, email, teléfono, sitio web opcional, país, producto, volumen, servicios, proveedor logístico actual, comentarios y aceptación de privacidad.
+- Mensajes de validación localizados, contador de 500 caracteres, confirmación accesible para volúmenes de 0-100 envíos mensuales, confirmación de éxito simulada y opción para reiniciar el formulario.
+- Los perfiles y testimonios de la landing son ilustrativos; las demos operativas se identifican como simulaciones.
 - Marcado Schema.org `Organization`, metadatos SEO y enlaces de contacto corporativo en la landing.
 - Imagen WebP local en el panel derecho de la sección de contacto (`assets/images/contacto.webp`).
 - Avisos visuales que aparecen solo al enviar un formulario o realizar una interacción demostrativa.
 - Modal de acceso y registro con foco inicial, navegación de foco por teclado, cierre con `Escape` y devolución del foco al elemento que lo abrió.
 - Tailwind CSS por CDN y estilos CSS locales.
 
-Las interacciones de login, registro, solicitud comercial y tracking son simulaciones: no existe autenticación, persistencia ni API conectada. El formulario no transmite ni almacena los datos introducidos.
-Los avisos (`toast`) permanecen ocultos hasta que una interacción necesita comunicar un resultado. El modal de acceso se puede usar con teclado; mientras está abierto, el foco permanece dentro de él.
+Las interacciones de login, registro, solicitud comercial y tracking son simulaciones: no existe autenticación, persistencia de leads ni API conectada. El formulario no transmite ni almacena los datos introducidos. La preferencia de idioma es el único dato que persiste localmente.
+Los avisos (`toast`) permanecen ocultos hasta que una interacción necesita comunicar un resultado. Los diálogos de acceso y de bajo volumen incluyen soporte de teclado y controles accesibles.
 
 ## Ejecutar localmente
 
