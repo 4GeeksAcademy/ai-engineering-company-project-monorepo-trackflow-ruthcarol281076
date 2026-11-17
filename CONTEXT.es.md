@@ -1,129 +1,176 @@
-# Bienvenido a TrackFlow
+# Contexto del proyecto — TrackFlow
 
-## AI Engineering · 4Geeks Academy — Briefing de empresa
+> Este documento define el **contexto funcional y técnico del proyecto**: dominio, estado implementado, stack y decisiones aún no tomadas. El español es la fuente editorial principal; [`CONTEXT.md`](./CONTEXT.md) es su traducción al inglés. No es una guía general de flujo de trabajo: consulta [`AGENTS.es.md`](./AGENTS.es.md) para saber qué documentación usar y cómo mantener sincronizadas las versiones. Distingue el estado **implementado**, el contexto de negocio y las **propuestas** futuras. No presentes capacidades propuestas como si ya existieran.
 
----
+## 1. Resumen del proyecto (Project Overview)
 
-TrackFlow es una empresa de logística de última milla y gestión de almacenes fundada en 2009 en Los Ángeles, Estados Unidos. Opera en dos mercados — Estados Unidos y España — con almacenes en Los Ángeles y Zaragoza. La empresa cuenta con unos 130 empleados y factura alrededor de 9 millones de euros anuales.
+### Propósito
 
-TrackFlow existe porque las marcas de e-commerce son buenas haciendo y vendiendo productos, pero no haciendo llegar esos productos a la puerta del cliente. Eso es lo que hace TrackFlow por ellas: almacena su inventario, prepara y empaqueta los pedidos, los envía a través de una red de transportistas y gestiona las devoluciones cuando los productos regresan. Para las marcas que trabajan con TrackFlow, toda la operación logística — desde el momento en que se hace un pedido hasta el momento en que se entrega o se devuelve — es responsabilidad de TrackFlow.
+TrackFlow es una empresa ficticia de logística transfronteriza y gestión de almacenes, con operaciones descritas entre Los Ángeles (Estados Unidos) y Zaragoza (España). Este repositorio contiene actualmente dos demostraciones frontend: un sitio corporativo público para presentar los servicios y simular algunas interacciones, y un backoffice inicial con información operativa de ejemplo.
 
-## Cómo está organizada la empresa
+### Estado actual
 
-TrackFlow está liderada por **Thomas Harry**, fundador y CEO, con sede en Los Ángeles. La empresa tiene una oficina de tecnología en Zaragoza, España, donde están el CTO Andrés Kim y la mayor parte del equipo técnico. Los equipos de operaciones, comercial y atención al cliente están distribuidos entre los dos países.
+El proyecto está en una fase de **prototipo frontend estático/educativo**, no en producción. Las dos interfaces se sirven como archivos HTML y no tienen servicios backend, APIs, base de datos, autenticación ni persistencia conectados. Las interacciones de tracking, acceso/registro y contacto son demostraciones locales; los indicadores del backoffice son datos de ejemplo.
 
-La empresa se organiza en las siguientes áreas:
+El briefing describe necesidades empresariales y posibles retos, pero no significa que esas soluciones se hayan implementado. Los directorios de servicios, datos y agentes son en su mayoría esqueletos documentales o plantillas.
 
-**Operaciones de Almacén** es donde ocurre el trabajo físico de la logística. Ana Whitfield supervisa los dos almacenes —uno en Los Ángeles, otro en Zaragoza— y los aproximadamente 70 operarios que los gestionan. Cada día, cientos de pedidos llegan, se recogen de las estanterías, se empaquetan y se entregan a los transportistas. Los dos almacenes funcionan con sistemas distintos y no tienen una visión compartida del inventario.
+### Rol de la IA en la aplicación
 
-**Última Milla y Gestión de Transportistas** gestiona la relación con los 8 transportistas con los que TrackFlow trabaja en los dos países — entre ellos UPS, FedEx, MRW y SEUR. Carlos Vega coordina qué transportista lleva cada envío, hace seguimiento de las entregas y gestiona las incidencias que inevitablemente ocurren: paquetes perdidos, entregas fallidas, direcciones incorrectas. Hoy, la mayor parte de esto se hace de forma manual, transportista por transportista.
+**Estado actual:** no hay funciones de IA conectadas en las interfaces ni proveedor, modelo o SDK configurado para la aplicación.
 
-**Logística Inversa** gestiona lo que ocurre cuando un producto regresa. Sofía Ramos lidera este equipo de cinco personas. Las devoluciones representan entre el 18% y el 25% del volumen total según el cliente y el país, y cada devolución implica una cadena de decisiones — aprobar o rechazar, recoger o no, reacondicionar o desechar — que actualmente pasan todas por revisión humana.
+**Contexto/propuesta de producto:** el briefing identifica como posibles iniciativas la clasificación visual de devoluciones, búsqueda semántica/RAG, asistentes de atención y dirección, y recomendaciones explicables para elegir transportistas. Ninguna está implementada en este prototipo. La selección de proveedor, modelos, SDK, arquitectura y límites de uso queda **por definir** cuando se apruebe una iniciativa concreta.
 
-**Atención al Cliente** es la primera línea entre TrackFlow y las personas a las que sirve. Valentina Cruz gestiona 15 agentes en Los Ángeles y Zaragoza que atienden consultas tanto de las marcas (que quieren saber cómo va su operación) como de los consumidores finales (que quieren saber dónde está su paquete). La gran mayoría de las consultas son repetitivas, y ahora mismo cada una de ellas la responde una persona.
+## 2. Stack tecnológico (Tech Stack)
 
-**Comercial y Relación con Clientes** gestiona la cartera de clientes marca de TrackFlow. Miguel Torres lidera a los account managers y al equipo de desarrollo de negocio, responsables de retener a los clientes actuales y ganar nuevos. Los contratos son anuales, y las renovaciones se ganan o se pierden en función de si los clientes sienten que su operación logística está funcionando bien.
+### Frontend
 
-**Tecnología** es el equipo que construye y mantiene todo. Andrés Kim lidera desde Zaragoza a un equipo de desarrolladores, data engineers y personas de sistemas. La arquitectura actual es un patchwork: dos sistemas de almacén distintos, un ERP de principios de los años 2010 e integraciones entre ellos que se construyeron con rapidez y nunca se documentaron bien. Cuando algo falla, el equipo se entera por un mensaje de WhatsApp de alguien en operaciones.
+- HTML5 estático, con CSS y JavaScript nativo embebidos en los documentos HTML existentes.
+- Tailwind CSS se carga desde `https://cdn.tailwindcss.com`; las interfaces requieren conexión a internet para recibir esos estilos.
+- El backoffice carga `DM Sans` y `Space Grotesk` desde Google Fonts. Hay imágenes remotas en la web.
+- Las páginas se pueden servir con Python 3, sin instalar dependencias del proyecto.
+- No se ha detectado configuración de React, Vue, Next.js, TypeScript, Vite ni otro framework o proceso de build para las interfaces actuales.
 
-**Dirección Ejecutiva** recae en Thomas, que gestiona el negocio desde Los Ángeles con un informe semanal consolidado que cada director prepara manualmente — un proceso que consume horas cada domingo por la noche y que aun así entrega datos que ya llevan uno o dos días de antigüedad.
+### Backend / API
 
-## Dónde está la empresa hoy
+No existe backend funcional ni API implementada en el estado actual. `services/` contiene documentación de orientación, no una aplicación API desplegable identificada. Framework y contratos de API quedan **por definir**.
 
-TrackFlow tiene buenos clientes, un equipo de operaciones competente y una propuesta de valor clara. Lo que le falta es la infraestructura para gestionar una operación logística de dos países a escala. Los dos almacenes no pueden ver el inventario del otro. Los datos de rendimiento de los transportistas no existen en ninguna forma estructurada. Las devoluciones se aprueban o rechazan una por una. Las consultas de los clientes las responden agentes consultando un documento de Word en Google Drive. El CEO toma decisiones basándose en un informe ensamblado a mano.
+### Base de datos y ORM
 
-La consecuencia es que TrackFlow es más lenta, más propensa a errores y menos rentable de lo que necesita ser — y la brecha crece mientras los competidores invierten en automatización.
+No se detecta base de datos, esquema funcional ni ORM configurado. El motor, alojamiento, modelo de datos, estrategia de migraciones y política de retención quedan **por definir**. No se debe asumir PostgreSQL, Supabase, MongoDB, Prisma, Drizzle, pgvector u otra tecnología.
 
-Daniel ha creado una unidad interna llamada **TrackFlow Tech** con un mandato claro: construir los sistemas, las integraciones y las automatizaciones inteligentes que permitan a TrackFlow operar como la empresa logística moderna que necesita ser.
+### Servicios de IA
 
-**Tú formas parte de esa unidad.**
+No hay proveedor, modelos, SDK de IA, streaming ni herramientas de inferencia configurados. Quedan **por definir**. Las capacidades de IA del briefing son objetivos de producto propuestos, no integraciones existentes.
 
----
+## 3. Arquitectura y estructura de carpetas
 
-## Los departamentos y sus problemas
+El repositorio es un monorepo organizado por responsabilidad. La estructura presente incluye carpetas de guía y plantillas; no todas contienen sistemas ejecutables.
 
-### 🚚 Operaciones de almacén
+```text
+.
+├── CONTEXT.es.md          # Contexto técnico y funcional en español
+├── CONTEXT.md             # Traducción al inglés del contexto técnico y funcional
+├── AGENTS.es.md           # Instrucciones de trabajo para el asistente, en español
+├── AGENTS.md              # Traducción al inglés de las instrucciones para el asistente
+├── uis/
+│   ├── website/           # Web pública: index.html y application.html
+│   └── backoffice/        # Dashboard interno estático: index.html
+├── services/              # Espacio documentado para APIs y workers; sin backend implementado
+├── agents/                # Guías, herramientas y plantilla para futuros agentes
+│   ├── _template/         # Esqueleto de agente y pruebas de ejemplo
+│   └── tools/             # Guía para herramientas de agentes
+├── skills/                # Capacidades reutilizables; incluye code-review, data-analysis y research
+├── mcps/                  # Espacio documentado para servidores MCP
+├── workflows/             # Espacio documentado para automatizaciones
+├── data/
+│   ├── raw/               # Espacio para datos de origen
+│   ├── pipelines/         # Espacio para pipelines
+│   ├── process/           # Espacio para datos procesados
+│   └── eval/              # Espacio para evaluación
+├── packages/
+│   └── shared/            # Metadatos y tipos TypeScript compartidos de ejemplo
+├── shared/                # Recursos y esquemas compartidos
+├── docs/                  # Documentación transversal
+├── infra/                 # Espacio para infraestructura y despliegue
+├── scripts/               # Espacio para scripts auxiliares
+└── internal/              # Espacio para herramientas internas
+```
 
-**Responsable:** Ana Whitfield (~70 operarios + 2 responsables de almacén)
+### Aplicaciones frontend actuales
 
-El almacén de Los Ángeles y el de Zaragoza utilizan sistemas de gestión de almacén (SGA) diferentes — uno es software comercial, el otro es una hoja de cálculo avanzada. No existe visibilidad de inventario en tiempo real a nivel global. Los pedidos entrantes llegan por email en formatos distintos según el cliente y se transcriben manualmente. El picking se hace con listas en papel. Las discrepancias de inventario son frecuentes y se detectan tarde.
+- `uis/website/index.html`: landing corporativa con navegación y demostraciones en el navegador.
+- `uis/website/application.html`: formulario de contacto con validación del navegador y confirmación simulada.
+- `uis/backoffice/index.html`: dashboard estático con indicadores de muestra, comparativa de almacenes y secciones operativas.
+- `packages/shared/types/index.ts`: ejemplos genéricos `Id` y `BaseEntity`; no constituye todavía un modelo de dominio de TrackFlow.
 
-**Qué necesitan:** Una API de inventario unificada que devuelva el stock en tiempo real de cualquier SKU en cualquiera de los dos almacenes, un pipeline de ingesta de pedidos que parsee los emails automáticamente, un dashboard de operaciones de almacén, y alertas de stock bajo que notifiquen al cliente y al equipo de compras.
+### Ejecución local
 
----
+Desde la raíz del repositorio, iniciar cada interfaz en una terminal independiente:
 
-### 📦 Última milla y gestión de transportistas
+```bash
+cd uis/website
+python3 -m http.server 8080
+```
 
-**Responsable:** Carlos Vega (6 coordinadores logísticos)
+Web pública: <http://localhost:8080/>.
 
-TrackFlow trabaja con 8 transportistas en ambos países (UPS, FedEx y DHL en Estados Unidos; MRW, SEUR y DHL en España, más dos transportistas locales). La asignación de transportista por envío es manual. El seguimiento de paquetes obliga a consultar múltiples portales de cada transportista por separado. No hay datos históricos de rendimiento: sin tasa de entrega a tiempo, sin incidencias por ruta, sin coste por kg.
+```bash
+cd uis/backoffice
+python3 -m http.server 8081
+```
 
-**Qué necesitan:** Un motor de selección de transportista que recomiende la opción óptima dado el destino, peso y urgencia; un endpoint unificado de tracking que agregue el estado desde cualquier transportista; un portal de seguimiento público para el destinatario; y un dashboard de rendimiento de transportistas.
+Backoffice: <http://localhost:8081/>. Para detener cada servidor, usar `Ctrl+C` en su terminal.
 
----
+## 4. Convenciones de código y estilo (Coding Standards)
 
-### 🔄 Logística inversa
+### Convenciones observadas
 
-**Responsable:** Sofía Ramos (equipo de 5 personas)
+- Mantener las interfaces estáticas en las carpetas correspondientes de `uis/`; no mezclar la web pública con el backoffice.
+- Las páginas existentes usan HTML semántico, CSS y JavaScript nativo integrados en sus archivos. No introducir framework ni compilación suponiendo que ya forman parte del stack.
+- Mantener el diseño adaptable y las interacciones accesibles en teclado; respetar las preferencias de movimiento reducido cuando se añadan animaciones.
+- La UI pública está redactada en español. Mantener su idioma y tono salvo petición explícita de localización; el contenido del backoffice también debe ser coherente con el producto.
+- En documentación, indicar con claridad qué es real, qué está simulado y qué es una propuesta.
+- El paquete compartido tiene tipos TypeScript de ejemplo, pero el frontend actual no está configurado para compilar TypeScript.
 
-Las devoluciones representan entre el 18% y el 25% del volumen según cliente y país. Cada devolución pasa por revisión manual — no existen criterios de aprobación automáticos. La inspección del producto devuelto es subjetiva e inconsistente entre operarios. No hay visibilidad sobre qué productos se devuelven más ni por qué.
+### Recomendaciones para cambios nuevos
 
-**Qué necesitan:** Un motor de aprobación automática de devoluciones con reglas configurables por cliente, un flujo automatizado de recogida (aprobación → etiqueta → instrucciones al cliente → programación con transportista), un sistema de inspección asistido por IA donde el operario fotografía el producto y la IA clasifica su estado, y un dashboard de devoluciones con análisis de patrones.
+- Usar nombres descriptivos y consistentes con el archivo y dominio existente. JavaScript: `camelCase` para variables y funciones; tipos/componentes, si se incorporan, `PascalCase`; nombres de archivo nuevos, preferentemente `kebab-case`.
+- Mantener el código modular dentro de las posibilidades del prototipo. Extraer lógica repetida si mejora legibilidad sin introducir infraestructura innecesaria.
+- Añadir comentarios solo cuando aclaren lógica no obvia o decisiones importantes.
+- Validar formularios en el cliente para la experiencia de demostración, pero no tratar esa validación como sustituto de validación y seguridad en un futuro backend.
+- Gestionar fallos de recursos externos de forma razonable y no mostrar como éxito una operación de red que no se realizó.
 
----
+### Por definir
 
-### 📞 Experiencia del cliente
+No hay formatter, linter, sistema de pruebas, convención de componentes ni política de manejo de errores de API establecida para las aplicaciones. Al incorporar backend o framework, definir estas reglas en documentación específica y añadir validaciones automatizadas.
 
-**Responsable:** Valentina Cruz (15 agentes en Los Ángeles y Zaragoza)
+## 5. Reglas específicas de IA (AI & Prompt Guidelines)
 
-TrackFlow atiende a dos tipos de cliente: las marcas (B2B) que contratan sus servicios y los consumidores finales (B2C) que reciben los paquetes. Los 15 agentes gestionan ambos a través de email, WhatsApp y teléfono sin un sistema unificado de tickets. El 80% de las consultas podría resolverse automáticamente. No hay base de conocimiento. La cobertura fuera del horario de oficina es cero.
+### Estado actual
 
-**Qué necesitan:** Un agente de CX de primera línea que resuelva automáticamente consultas de seguimiento y estado de devoluciones, una base de conocimiento semántica indexada para RAG, un sistema unificado de tickets, un dashboard de CX en tiempo real, y análisis de sentimiento para detectar clientes frustrados antes de que escalen. El soporte multiidioma (español + inglés) es opcional pero altamente recomendado, empezando por un idioma base.
+- No existen prompts de sistema de la aplicación ni llamadas a modelos detectadas.
+- No existe streaming, validación de salidas de modelos ni integración de Zod/JSON Schema para respuestas de IA.
+- Los formularios, el tracking y los indicadores actuales son demostrativos; no atribuirlos a un agente o modelo.
 
----
+### Propuesta para futuras funciones con IA
 
-### 🤝 Comercial y relación con clientes
+Cuando se apruebe una función de IA:
 
-**Responsable:** Miguel Torres (4 account managers + 4 desarrollo de negocio)
+1. Guardar prompts versionados y documentados en una ubicación dedicada del agente o función (por ejemplo, `agents/<nombre>/prompts/`), en lugar de dispersar textos de sistema por la UI. Esta ubicación es una **propuesta**, no una convención ya implementada.
+2. Definir el proveedor, modelo, SDK, controles de privacidad, límites de tasa, tratamiento de errores y estrategia de costes antes de conectar la función.
+3. Validar cualquier salida estructurada en el servidor con un esquema explícito. Zod o JSON Schema son opciones por evaluar; el proyecto no ha elegido una.
+4. No exponer claves del proveedor al navegador. Las llamadas autenticadas a modelos deben pasar por backend cuando exista.
+5. Añadir evaluaciones y casos de prueba en `data/eval/` para medir calidad, seguridad y regresiones.
+6. Usar streaming únicamente si el caso de uso y el backend lo requieren; transporte, cancelación y representación en cliente quedan por definir.
+7. No permitir que un modelo ejecute decisiones operativas sensibles (por ejemplo, aprobar devoluciones o elegir transportista) sin reglas, límites, trazabilidad y supervisión humana definidos.
 
-Los account managers gestionan sus cuentas en hojas de cálculo personales e hilos de email — no hay CRM. Los informes a clientes son manuales: cada mes un account manager consolida datos de distintos sistemas para enviar a cada cliente un informe en PDF. No hay visibilidad sobre qué clientes corren riesgo de no renovar.
+## 6. Modelo de datos y variables de entorno
 
-**Qué necesitan:** Integración con CRM con perfil unificado de cliente, informes PDF para clientes generados automáticamente por un agente, un dashboard de salud de cliente con puntuación de riesgo de renovación, alertas a 90 y 30 días del vencimiento del contrato, y un agente comercial que sugiera el servicio y la estructura de precios más relevantes para cada prospecto.
+### Entidades clave
 
----
+No hay tablas o entidades de negocio implementadas. Como **propuesta inicial de dominio**, futura y sujeta a validación, podrían definirse:
 
-### 💻 Tecnología
+- `Warehouse`: almacén de Los Ángeles o Zaragoza.
+- `SKU` e `InventoryItem`: producto y existencias por almacén.
+- `Order` y `Shipment`: pedido y envío, incluyendo estados y eventos de seguimiento.
+- `Carrier`: transportista y métricas de servicio.
+- `Return`: solicitud, inspección y resolución de una devolución.
+- `Client`: marca cliente de TrackFlow.
 
-**CTO:** Andrés Kim (equipo de 7 personas en Zaragoza)
+Estas entidades son una propuesta derivada del briefing, no tablas existentes ni un esquema aprobado. Acordar identificadores, relaciones, estados, auditoría, privacidad y fuentes de verdad antes de persistir datos. Evitar cargar datos personales o reales de clientes en el repositorio.
 
-La arquitectura tecnológica de TrackFlow es el resultado de años de crecimiento no planificado: dos SGA diferentes, un ERP corporativo de principios de la década de 2010, scripts de Python punto a punto sin documentar, y bases de datos en dos proveedores cloud distintos. No hay telemetría centralizada. Cuando un endpoint falla en Los Ángeles, el equipo de Zaragoza se entera por WhatsApp. Desplegar una nueva funcionalidad lleva entre una y dos semanas.
+### Variables de entorno
 
-**Qué necesitan:** Telemetría y logging centralizados de ambos países, un pipeline de datos que alimente todos los dashboards de la empresa, monitorización en tiempo real con alertas automáticas, un agente de documentación técnica, y automatización de tareas de operaciones (backups, health checks, notificaciones de incidencias con contexto).
+Actualmente no se detectan variables de entorno requeridas por las interfaces ni archivos de configuración de servicios ejecutables. No hay `DATABASE_URL`, claves de proveedores de IA u otras credenciales definidas como necesarias para este prototipo.
 
----
+Si se incorporan backend, base de datos o servicios externos, documentar aquí **solo los nombres** de las variables requeridas y sus propósitos; guardar los valores localmente fuera del control de versiones y nunca incluir secretos en el frontend. La lista concreta está **por definir**.
 
-### 📊 Dirección Ejecutiva
+## 7. Límites y cautelas específicas del proyecto
 
-**CEO:** Daniel Espinoza
+Esta sección registra únicamente distinciones propias del estado y el dominio de TrackFlow; las fuentes documentales y el procedimiento general de trabajo, revisión y sincronización están definidos en [`AGENTS.es.md`](./AGENTS.es.md) y su traducción [`AGENTS.md`](./AGENTS.md).
 
-Daniel recibe un informe consolidado cada lunes que sus directores preparan el domingo por la tarde combinando datos de distintos sistemas — 3 o 4 horas de trabajo por director. A las 10 de la mañana del lunes, algunos datos ya tienen dos días de antigüedad. No hay una visión unificada del negocio por país. Las decisiones estratégicas se toman con datos parciales.
-
-**Qué necesita:** Un dashboard ejecutivo global con KPIs de ambas operaciones en tiempo real (volumen de envíos, tasa de entrega a tiempo, coste operativo, devoluciones, satisfacción del cliente), un informe semanal generado automáticamente los lunes a las 7 de la mañana, comparativas por país, alertas por umbrales, y un asistente de IA al que pueda consultar en lenguaje natural.
-
----
-
-## ¿Por qué elegir TrackFlow?
-
-Elige TrackFlow si te atraen:
-
-- **Logística y operaciones físicas** — cada línea de código que escribas está conectada a un paquete que se mueve de una estantería de almacén a la puerta de alguien.
-- **Complejidad transfronteriza** — dos países, dos idiomas, dos entornos regulatorios y dos stacks tecnológicos separados que hay que unificar.
-- **Ingeniería de datos en su forma más concreta** — métricas de rendimiento de transportistas, inventario a nivel de SKU, streams de eventos de envío y clasificación de devoluciones son todos estructurados, medibles y visualmente impactantes en dashboards.
-- **Sistemas que funcionan 24/7** — los clientes de TrackFlow no dejan de esperar sus paquetes después de las 18:00. El agente de CX, el portal de seguimiento y el dashboard de operaciones deben estar siempre disponibles.
-
-Los retos de IA en TrackFlow incluyen clasificación de estado de productos devueltos por imagen, búsqueda semántica sobre políticas logísticas en dos idiomas, selección inteligente de transportista con recomendaciones explicables, y un agregador de tracking en tiempo real que extrae datos de 8 APIs de transportistas distintas. Si quieres construir sistemas que manejen complejidad del mundo físico a escala, TrackFlow es tu empresa.
-
----
-
-_Documento interno — 4Geeks Academy · AI Engineering Track_
-_Uso exclusivo para la generación de proyectos del programa_
+- Distinguir siempre los hechos del contexto empresarial, las funciones presentes en el prototipo y las ideas de roadmap. El briefing no demuestra que un sistema esté construido.
+- El tracking, los formularios, el acceso/registro y los indicadores del backoffice son demostraciones; no describirlos como operaciones reales ni conectadas a servicios.
+- Los sistemas backend, APIs, bases de datos, integraciones de transportistas, IA y persistencia no están implementados en el prototipo descrito aquí. Sus tecnologías y contratos siguen pendientes de decisión.
+- Las entidades del apartado 6 son propuestas de dominio, no tablas, contratos ni modelos aprobados.
+- No asumir el uso de datos personales o de clientes reales. Cualquier futura incorporación requiere definir primero su origen, autorización, privacidad y controles.

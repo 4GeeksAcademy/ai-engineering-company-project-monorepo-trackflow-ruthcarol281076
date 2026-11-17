@@ -12,4 +12,26 @@ Organize `uis/` by **different concerns** — each subfolder covers a distinct a
 - **Main purpose**: to centralize in a single place all frontend applications that support the company's use cases.
 - **Recommendation**: document in this file (or in sub-READMEs) the applications you add, their objective, the technology used, and how to run them.
 
+## Start the applications
+
+These are independent static applications. Run them from their own folders using different ports:
+
+```bash
+# Public corporate website
+cd uis/website
+python3 -m http.server 8080
+# http://localhost:8080
+
+# Internal backoffice, in another terminal
+cd uis/backoffice
+python3 -m http.server 8081
+# http://localhost:8081
+```
+
+You can also use `npx serve .` inside either application folder. See each application's README for details:
+
+- [`website/README.md`](./website/README.md)
+- [`backoffice/README.md`](./backoffice/README.md)
+
+
 > _Estas instrucciones también están disponibles en [español](./README.es.md)._
