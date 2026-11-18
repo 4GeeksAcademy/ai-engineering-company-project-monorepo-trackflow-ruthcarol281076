@@ -15,15 +15,15 @@ Abre `http://localhost:8080/` y `http://localhost:8080/application.html`. Manté
 
 ## Registro de sesión
 
-- Fecha y hora:
-- Persona que prueba:
-- Navegador y versión:
-- Sistema operativo/dispositivo:
-- URL utilizada (local o pública):
-- Ancho de viewport / nivel de zoom:
-- Idioma activo:
-- Resultado global: ☐ Aprobado ☐ Aprobado con incidencias ☐ Bloqueado
-- Enlaces a capturas/evidencia:
+- Fecha: 17/11/2026 (sesión responsive; Lighthouse generado el 18/11/2026 a las 03:00 UTC).
+- Persona que prueba: no consignada.
+- Navegador y versión: no consignados para las pruebas responsive. El JSON de Lighthouse identifica Chrome 157 en el agente de usuario del host y emulación móvil Moto G Power (2022).
+- Sistema operativo/dispositivo: no consignado para las pruebas responsive; Lighthouse informa emulación móvil Android 11, viewport 412 × 823.
+- URL utilizada (pública de desarrollo): `https://fluffy-halibut-vq5wvjrrxrqcpjj-8080.app.github.dev/index.html#inicio`.
+- Ancho de viewport: 1200 px o más, 1032 px, 768 px, 380 px y 320 px; nivel de zoom no consignado.
+- Idioma activo: español e inglés.
+- Resultado global: versión bilingüe implementada y probada en los tamaños indicados, con una incidencia móvil corregida cuyo retest final no está documentado; quedan comprobaciones de accesibilidad y técnicas pendientes.
+- Enlaces a capturas/evidencia: evidencias históricas enlazadas en cada sección; [JSON Lighthouse recibido](evidence/test-website/lighthouse-trackflow-17nov2026.json), con limitaciones descritas en la sección 6.
 
 **Criterio de resultado:** marca cada caso como `☐ Pendiente`, `☐ Aprobado`, `☐ Fallido` o `☐ No aplica`. En Resultado/evidencia anota qué pasó realmente, datos de prueba no sensibles, captura y/o referencia a la incidencia. No uses datos personales reales.
 
@@ -37,7 +37,7 @@ Abre `http://localhost:8080/` y `http://localhost:8080/application.html`. Manté
 (index):64 cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
 1.4- [ `☐ Pendiente` ] Revisar DevTools → Network: scripts, favicon e imágenes locales cargan correctamente; no aparece una solicitud que transmita los datos del formulario. Las capturas de portada (1.4.a), formulario (1.4.b) y confirmación (1.4.c) muestran recursos cargados y no muestran una solicitud de envío. OBS: el bloqueo inicial del formulario ya no se reproduce; se confirmó que el paso 1 muestra los errores esperados y avanza con datos válidos. Falta completar y registrar la inspección de Network durante el envío; por eso no se da por verificado el criterio completo.
 1.5- [ `☐ Aprobado` ] Navegar desde los CTA de la portada al formulario y volver mediante el enlace correspondiente; los enlaces internos llegan a la sección correcta.
-1.6- [ `☐ Fallido` ] Comprobar que las demos (tracking/login/registro) se identifican como simulaciones y no aparentan completar acciones reales. OBS: el aviso de cuenta creada en español no identifica la simulación (1.6.e); en inglés sí lo hace (1.6.d). En el modal de registro inglés no se ve aviso antes de crear la cuenta (1.6.c). Revisar también que tracking y la confirmación de solicitud no sugieran acciones reales.
+1.6- [ `☐ Pendiente` ] Comprobar que las demos (tracking/login/registro) se identifican como simulaciones y no aparentan completar acciones reales. En la evidencia anterior, el aviso español no identificaba la simulación (1.6.e) y en el modal inglés no se veía aviso previo (1.6.c). Se implementaron avisos de registro localizados, pero falta retest manual ES/EN. Revisar también que tracking y la confirmación de solicitud no sugieran acciones reales.
 
 **Resultado/evidencia:**
 
@@ -47,7 +47,7 @@ Abre `http://localhost:8080/` y `http://localhost:8080/application.html`. Manté
 | Formulario | | |
 | CTA / navegación | | |
 
-**Resumen sección 1:** las capturas 1.4.a y 1.4.b muestran la portada y el formulario, respectivamente, con las solicitudes visibles y sin errores HTTP en lo que alcanza a verse; 1.4.c muestra la confirmación del formulario y no una solicitud de envío adicional. Esto respalda la carga de recursos, pero no sustituye la revisión completa de Network durante el envío. La evidencia 1.3 no es una captura de Console, así que el warning de Tailwind anotado en la observación debe conservarse como tal, no como prueba de ausencia de otros errores. Los CTA y la navegación se marcaron aprobados durante la sesión, pero no hay captura asociada. El caso 1.6 falla por mensajes de simulación inconsistentes entre idiomas y por falta de aviso visible antes del registro.
+**Resumen sección 1:** las capturas 1.4.a y 1.4.b muestran la portada y el formulario, respectivamente, con las solicitudes visibles y sin errores HTTP en lo que alcanza a verse; 1.4.c muestra la confirmación del formulario y no una solicitud de envío adicional. Esto respalda la carga de recursos, pero no sustituye la revisión completa de Network durante el envío. La evidencia 1.3 no es una captura de Console, así que el warning de Tailwind anotado en la observación debe conservarse como tal, no como prueba de ausencia de otros errores. Los CTA y la navegación se marcaron aprobados durante la sesión, pero no hay captura asociada. El registro simulado tuvo hallazgos en la versión de las capturas; los mensajes ES/EN fueron actualizados y falta confirmar el resultado mediante retest.
 
 **Evidencias:** [1.3](evidence/test-website/test-website-evidence-1-3.jpg) · [1.4.a](evidence/test-website/test-website-evidence-1-4-a.jpg) · [1.4.b](evidence/test-website/test-website-evidence-1-4-b.jpg) · [1.4.c](evidence/test-website/test-website-evidence-1-4-c.jpg) · [1.6.a](evidence/test-website/test-website-evidence-1-6-a.jpg) · [1.6.b](evidence/test-website/test-website-evidence-1-6-b.jpg) · [1.6.c](evidence/test-website/test-website-evidence-1-6-c.jpg) · [1.6.d](evidence/test-website/test-website-evidence-1-6-d.jpg) · [1.6.e](evidence/test-website/test-website-evidence-1-6-e.jpg)
 
@@ -82,24 +82,25 @@ Ejecuta estos pasos tanto en la portada como en el formulario:
 
 Prueba ambos idiomas en la portada y, en el formulario, cada uno de los tres pasos. Usa DevTools responsive mode o dispositivos reales.
 
-| Ancho | Portada ES/EN | Formulario ES/EN (pasos 1–3) | ¿Overflow horizontal? | Evidencia/incidencia |
-|---:|---|---|---|---|
-| 320 px | ☐ | ☐ | | |
-| 375 px | ☐ | ☐ | | |
-| 768 px | ☐ | ☐ | | |
-| 1024 px o más | ☐ | ☐ | | |
+| Ancho | Portada ES | Formulario ES | Portada EN | Formulario EN | Resultado reportado |
+|---:|---|---|---|---|---|
+| 1200 px o más | OK | OK | OK | OK | Sin incidencias reportadas |
+| 1032 px | OK | OK | OK | OK | Sin incidencias reportadas |
+| 768 px | OK | OK | OK | OK | Sin incidencias reportadas |
+| 380 px | OK | OK | OK | OK | Sin incidencias reportadas |
+| 320 px | OK | Incidencia de espaciado checkbox/texto; ajuste aplicado después | OK | OK | Falta confirmar retest del formulario ES tras el ajuste |
 
 En cada viewport:
 
-3.1- [ `☐ Fallido` ] No hay scroll horizontal accidental, texto cortado, solapamiento ni elementos fuera de pantalla. OBS: en el formulario en español, el texto del botón «Enviar solicitud →» se corta/desborda en el viewport estrecho (3.1.a). En la portada en español, la etiqueta «TRANSPORTISTA» se desborda de la tarjeta del simulador de envío (3.1.b). Las capturas no registran el ancho exacto; conservar 375 px y 320 px como observaciones de la sesión, pendientes de volver a anotar con viewport explícito.
+3.1- [ `☐ Pendiente` ] No hay scroll horizontal accidental, texto cortado, solapamiento ni elementos fuera de pantalla. En la sesión del 17/11, la portada en ambos idiomas y el formulario salvo el formulario ES a 320 px se reportaron OK. Allí se detectó demasiado espacio entre la casilla de privacidad y su texto; se redujo el espacio posteriormente, pero no consta el retest de ese estado. Los hallazgos previos de CTA/etiqueta en 3.1.a y 3.1.b tienen ajustes implementados; no se aportó un retest específico de esos hallazgos.
 3.2- [ `☐ Aprobado` ] Menú móvil/escritorio, selector de idioma, CTAs, botones del formulario, diálogos y enlaces son visibles y operables.
-3.3- [ `☐ Pendiente` ] Los textos ingleses largos no rompen tarjetas, navegación, botones ni encabezados. OBS: las capturas 3.1.a y 3.1.b son de la interfaz en español; no verifican este caso en inglés.
+3.3- [ `☐ Aprobado` ] En la sesión del 17/11 se reportaron la portada y el formulario en inglés sin incidencias en los cinco anchos anotados (1200 px o más, 1032 px, 768 px, 380 px y 320 px). No se adjuntaron capturas de cada tamaño.
 3.4- [ `☐ Aprobado` ] La imagen de contacto y demás recursos conservan proporciones y texto alternativo comprensible.
 3.5- [ `☐ Aprobado` ] Header y footer de la página de solicitud se ven coherentes con la marca y usables en móvil y escritorio.
 
 **Resultado/evidencia:**
 
-**Resumen sección 3:** se observan dos incidencias responsive concretas en español: el rótulo/flecha del botón de envío del formulario y la etiqueta «TRANSPORTISTA» en la tarjeta del seguimiento. No hay evidencia visual adjunta para los otros anchos de la matriz ni para inglés; tampoco se registra una medición del desbordamiento horizontal de la página completa. El resto de estados aprobados se conserva como resultado de las pruebas realizadas por la persona, aunque la evidencia adjunta no cubre cada viewport.
+**Resumen sección 3:** la persona que probó reportó la portada en español y ambas páginas en inglés como correctas en los cinco anchos indicados. En el formulario español a 320 px se detectó una separación excesiva entre la casilla de privacidad y su texto; el espaciado se redujo después. No se confirmó el retest de ese punto ni de los hallazgos responsive anteriores 3.1.a/3.1.b. No se adjuntaron capturas de esta nueva matriz ni medición explícita del overflow horizontal.
 
 **Evidencias:** [3.1.a — botón del formulario](evidence/test-website/test-website-evidence-3-1-a.jpg) · [3.1.b — tarjeta de seguimiento](evidence/test-website/test-website-evidence-3-1-b.jpg)
 
@@ -192,15 +193,15 @@ Prueba ambos órdenes: **primero producto y después volumen**; y **primero volu
 | Volumen bajo: orden 2 | | |
 | Éxito / reset | | |
 
-**Resumen sección 5:** los casos 5.1–5.21 aparecen aprobados en el registro manual; incluyen navegación entre pasos, validación, diálogo de volumen bajo, éxito simulado e inicio de un flujo limpio. No se adjuntaron capturas identificadas para esta sección ni se transcribieron los mensajes observados en la matriz de validación por campo. La evidencia 1.4.c/1.6.a muestra el estado de éxito y explica que la solicitud no se envía ni almacena; aun así, el mensaje de éxito también promete contacto comercial en 24–48 horas. Conviene ajustar esa contradicción textual antes de considerar cerrado el caso de éxito.
+**Resumen sección 5:** los casos 5.1–5.21 aparecen aprobados en el registro manual; incluyen navegación entre pasos, validación, diálogo de volumen bajo, éxito simulado e inicio de un flujo limpio. No se adjuntaron capturas identificadas para esta sección ni se transcribieron los mensajes observados en la matriz de validación por campo. La evidencia 1.4.c/1.6.a muestra el estado de éxito e indica que la solicitud no se envía ni almacena, mientras también conserva la referencia ilustrativa a contacto en 24–48 horas. El usuario decidió mantener ese contenido comercial: se registra como decisión aceptada, no como cambio pendiente, y no implica que la promesa corresponda a un servicio real.
 
 **Evidencia relacionada:** [confirmación del formulario](evidence/test-website/test-website-evidence-1-6-a.jpg) · [confirmación y Network](evidence/test-website/test-website-evidence-1-4-c.jpg)
 
 ## 6. Rendimiento y evidencia de entrega — AC-02 / AC-06
 
-6.1- [ `☐ Aprobado` ] Si hay URL pública de Codespaces, probarla en una ventana privada o navegador externo autorizado y registrar URL/fecha. No exponer datos personales ni secretos. 17/11/2026 14:20, https://fluffy-halibut-vq5wvjrrxrqcpjj-8080.app.github.dev/index.html#inicio .
-6.2- [ `☐ Aprobado` ] Ejecutar PageSpeed Insights sobre la URL pública. Si no está disponible, ejecutar Lighthouse en Chrome DevTools sobre la misma vista y registrar la alternativa. Aplicado Page Speed Inside. Imagen anexa de informe de resultados para movil y desktop.
-6.3- [ `☐ Aprobado` ] Guardar captura o informe y anotar puntuaciones reales de Performance, Accessibility, Best Practices y SEO. El objetivo indicado por el plan es Performance ≥80; registrar el resultado aunque sea inferior. OBS: la persona que probó confirma que PageSpeed Insights evaluó la URL pública de desarrollo de TrackFlow anotada en esta sección; se consideran válidas las métricas de esas capturas para esa versión y momento.
+6.1- [ `☐ Aprobado` ] Se usó la URL pública de desarrollo de Codespaces anotada abajo. El registro previo indica una evaluación el 17/11/2026 alrededor de las 14:20; el JSON Lighthouse tiene `fetchTime` 2026-11-18 03:00:23 UTC. No se verificó que la URL temporal siga disponible.
+6.2- [ `☐ Aprobado` ] Se ejecutó PageSpeed Insights en la sesión previa y se recibió un JSON de Lighthouse para la landing. El JSON no es una medición válida del sitio: sus auditorías detectan texto y enlaces de una página de advertencia de GitHub/Codespaces, además de scripts de una extensión de Chrome.
+6.3- [ `☐ Pendiente` ] Guardar una medición representativa y anotar puntuaciones de la website. Las capturas de PageSpeed Insights de la sesión anterior se mantienen como resultados de esa corrida. No usar las puntuaciones del JSON como métricas de TrackFlow; repetir Lighthouse en una ventana/perfil sin extensiones y tras verificar que se ve la landing real. El objetivo indicado por el plan es Performance ≥80.
 6.4- [ `☐ No aplica` ] No se ejecutará PageSpeed Insights sobre el formulario; el alcance acordado es la medición de la landing.
 
 **URL pública (si aplica):**
@@ -211,28 +212,30 @@ Prueba ambos órdenes: **primero producto y después volumen**; y **primero volu
 
 | URL / vista | Performance | Accessibility | Best Practices | SEO | Evidencia |
 |---|---:|---:|---:|---:|---|
-| | | | | | |
-| | | | | | |
+| PageSpeed Insights, landing, móvil (Moto G Power emulado), 17/11/2026 aprox. 14:22 | 100 | 95 | 96 | 90 | [captura móvil](evidence/test-website/PageSpeed-Insights-11-17-2026_02_25_PM_movil.png) |
+| PageSpeed Insights, landing, escritorio, 17/11/2026 aprox. 14:22 | 100 | 95 | 96 | 90 | [captura escritorio](evidence/test-website/PageSpeed-Insights-11-17-2026_02_26_PM_desktop.png) |
 
 **Resultados de PageSpeed Insights para la URL pública de desarrollo de TrackFlow**, según la confirmación de quien realizó la prueba: en móvil (Moto G Power emulado), Performance 100, Accessibility 95, Best Practices 96 y SEO 90; en escritorio: 100, 95, 96 y 90. Las capturas indican 17/11/2026 alrededor de las 14:22. La URL evaluada fue `https://fluffy-halibut-vq5wvjrrxrqcpjj-8080.app.github.dev/index.html#inicio`. Las métricas corresponden a esa versión y fecha; no implican que se haya medido por separado el formulario ni versiones posteriores.
 
-**Evidencias:** [PageSpeed móvil](evidence/test-website/PageSpeed-Insights-11-17-2026_02_25_PM_movil.png) · [PageSpeed escritorio](evidence/test-website/PageSpeed-Insights-11-17-2026_02_26_PM_desktop.png)
+**JSON Lighthouse recibido:** la corrida figura con Lighthouse 13.5.0, emulación móvil (412 × 823; agente emulado Moto G Power 2022) y `fetchTime` `2026-11-18T03:00:23.594Z`. El archivo registra puntuaciones Performance 80, Accessibility 95, Best Practices 92 y SEO 90. **No se atribuyen a la website:** pese a que la URL solicitada es la landing, el informe encuentra en el DOM frases como «Only continue to visit the website if you trust whoever sent you the link», enlaces de reporte de abuso de GitHub y scripts `chrome-extension://`; también puntúa como ausentes el doctype y la meta descripción, que sí existen en `index.html`. Registra además un 404 para `/favicon.ico`, trabajo de una extensión que afectó el rendimiento y contrastes pertenecientes a esa advertencia. Estos indicios apuntan a una página intermedia del proxy/entorno, no al contenido de TrackFlow. Las puntuaciones y hallazgos del JSON se conservan solo como evidencia del intento, no como evaluación de calidad de la landing. Repetir desde un perfil limpio, verificando visualmente la página auditada. Este JSON y las mediciones PageSpeed anteriores son corridas distintas y no deben combinarse.
+
+**Evidencias:** [PageSpeed móvil](evidence/test-website/PageSpeed-Insights-11-17-2026_02_25_PM_movil.png) · [PageSpeed escritorio](evidence/test-website/PageSpeed-Insights-11-17-2026_02_26_PM_desktop.png) · [JSON Lighthouse](evidence/test-website/lighthouse-trackflow-17nov2026.json)
 
 ## Incidencias encontradas
 
 | ID | AC / caso | Pasos para reproducir | Resultado esperado | Resultado observado | Severidad / evidencia | Estado |
 |---|---|---|---|---|---|---|
-| 1 | AC-06 / 3.1.a | Abrir el formulario en español en viewport estrecho y revisar el CTA de envío. | Etiqueta y flecha visibles, sin recorte ni desbordamiento. | «Enviar solicitud →» se corta/desborda. | Media · [captura](evidence/test-website/test-website-evidence-3-1-a.jpg) | Cambio implementado; retest pendiente |
-| 2 | AC-02 / 3.1.b | Abrir la portada en español y revisar la tarjeta de seguimiento en viewport estrecho. | «TRANSPORTISTA» permanece dentro de su tarjeta. | La palabra rebasa la tarjeta. | Media · [captura](evidence/test-website/test-website-evidence-3-1-b.jpg) | Cambio implementado; retest pendiente |
-| 3 | AC-06 / 1.6 | Ejecutar registro simulado en inglés y español. | El usuario entiende antes y después que no se crea una cuenta real. | Aviso final en español no indica simulación; el inglés sí. Modal inglés sin aviso previo visible. | Alta · [1.6.c](evidence/test-website/test-website-evidence-1-6-c.jpg), [1.6.d](evidence/test-website/test-website-evidence-1-6-d.jpg), [1.6.e](evidence/test-website/test-website-evidence-1-6-e.jpg) | Cambio implementado; retest pendiente |
-| 4 | AC-04 / 5.19–5.20 | Completar y enviar el formulario de prueba. | Confirmación coherente con una simulación local, sin promesa de contacto real. | La confirmación promete contacto en 24–48 h y a la vez dice que no se envía ni almacena. | Alta · [captura](evidence/test-website/test-website-evidence-1-6-a.jpg) | Se conserva deliberadamente por decisión del usuario; no es cambio pendiente |
+| 1 | AC-06 / 3.1.a | Abrir el formulario en español en viewport estrecho y revisar el CTA de envío. | Etiqueta y flecha visibles, sin recorte ni desbordamiento. | El reporte anterior indicaba recorte de «Enviar solicitud →»; se ajustó el estilo del CTA. | Media · [captura anterior](evidence/test-website/test-website-evidence-3-1-a.jpg) | Cambio implementado; retest específico no consignado |
+| 2 | AC-02 / 3.1.b | Abrir la portada en español y revisar la tarjeta de seguimiento en viewport estrecho. | «TRANSPORTISTA» permanece dentro de su tarjeta. | El reporte anterior indicaba que la palabra rebasaba la tarjeta; se uniformó el tamaño de subtítulos del hero. | Media · [captura anterior](evidence/test-website/test-website-evidence-3-1-b.jpg) | Cambio implementado; retest específico no consignado |
+| 3 | AC-06 / 1.6 | Ejecutar registro simulado en inglés y español. | El usuario entiende antes y después que no se crea una cuenta real. | En la versión de las capturas, aviso final español insuficiente y aviso previo inglés no visible; se actualizaron avisos/toast en ambos idiomas. | Alta · [1.6.c](evidence/test-website/test-website-evidence-1-6-c.jpg), [1.6.d](evidence/test-website/test-website-evidence-1-6-d.jpg), [1.6.e](evidence/test-website/test-website-evidence-1-6-e.jpg) | Ajuste implementado; retest ES/EN pendiente |
+| 4 | AC-04 / 5.19–5.20 | Completar y enviar el formulario de prueba. | Según la decisión registrada, conservar el texto comercial aprobado. | La confirmación mantiene la referencia ilustrativa a 24–48 horas y aclara que la solicitud es simulada y no se envía ni almacena. | Nota · [captura](evidence/test-website/test-website-evidence-1-6-a.jpg) | Se conserva deliberadamente por decisión del usuario; no es cambio pendiente |
 
 ## Resumen ejecutivo de la sesión
 
-- **Funcionamiento general:** portada, formulario, cambio de idioma y principales flujos figuran como probados/aprobados por la persona que realizó la sesión. Las capturas aportan evidencia parcial de carga, idiomas, almacenamiento, registro simulado y confirmación del formulario.
-- **Hallazgos de la versión original:** 1.6 y 3.1 tienen ajustes implementados y requieren retest manual; el texto 5.19–5.20 se conserva intencionalmente por decisión del usuario.
-- **Validaciones pendientes o evidencia insuficiente:** inspección de Network completa (1.4); accesibilidad con lector/árbol, reducción de movimiento y ratios de contraste (4.8, 4.10, 4.11); prueba de inglés largo (3.3). Los estados aprobados sin capturas específicas siguen siendo resultado declarado de la sesión, no evidencia adjunta.
-- **PageSpeed:** se evaluó la landing pública de desarrollo de TrackFlow y las capturas registran 100/95/96/90 tanto en móvil como en escritorio. No se evaluará PageSpeed en el formulario, según el alcance confirmado.
+- **Responsive bilingüe:** en la sesión del 17/11 se reportó la portada y el formulario en español e inglés en 1200 px o más, 1032 px, 768 px, 380 px y 320 px. Todo se reportó OK salvo el espacio de la casilla de privacidad en el formulario español a 320 px; se aplicó un ajuste posterior y falta confirmar ese retest.
+- **Ajustes posteriores reportados:** separación checkbox/texto de privacidad reducida en móvil; Enviar solo visible en el paso 3 y Atrás desactivado después del envío simulado; selectores ES/EN alineados; subtítulos Transportista/Próximo hito uniformados. Las dos imágenes de testimonios se alojan localmente. Estos cambios no equivalen por sí solos a una aprobación manual de cada flujo.
+- **Validaciones pendientes o evidencia insuficiente:** inspección de Network completa (1.4); accesibilidad con lector/árbol, reducción de movimiento y ratios de contraste (4.8, 4.10, 4.11); retest final de la incidencia a 320 px y retest específico de hallazgos responsive anteriores. Los estados sin capturas siguen siendo resultados declarados, no evidencia adjunta.
+- **Rendimiento:** las capturas históricas de PageSpeed Insights registran 100/95/96/90 en móvil y escritorio para la corrida descrita. El JSON Lighthouse posterior no es representativo de la landing porque audita contenido intermedio del proxy/extensión; debe repetirse. Ninguna de estas mediciones se hizo sobre el formulario.
 
 ## Implementación aprobada y estado de verificación
 
@@ -241,6 +244,11 @@ La persona solicitante confirmó que **todos los elementos del plan son obligato
 | Elemento acordado | Implementación | Estado |
 |---|---|---|
 | CTA comercial en viewport estrecho y etiqueta «Transportista» | CTA flexible y de ancho completo en móvil; tipografía reducida para la etiqueta. | Implementado; falta repetición visual ES/EN a 320/375 px. |
+| Privacidad a 320 px en el formulario español | Se redujo la separación entre casilla y texto de aceptación para móvil. | Implementado después del hallazgo; falta confirmar retest a 320 px. |
+| Paso final del formulario | Enviar solo se muestra en el paso 3; Atrás se desactiva tras el éxito simulado y vuelve a habilitarse al reiniciar. | Implementado; sin retest manual posterior consignado. |
+| Controles de idioma de portada y formulario | Etiquetas ES/EN y alineación de icono/texto ajustadas, conservando nombres accesibles. | Implementado; las pruebas responsive reportan idiomas correctos, pero no hay retest funcional documentado de todos los estados. |
+| Subtítulos del hero | «Transportista» y «Próximo hito» usan el mismo tamaño y estilo tipográfico. | Implementado; retest visual específico no consignado. |
+| Imágenes de testimonios | Dos retratos remotos se reemplazaron por archivos locales. | Implementado; se verificó la existencia de los archivos, no un retest visual documentado. |
 | Registro simulado | Aviso visible en el modo de registro y mensaje final español «Acceso simulado creado. Te esperamos en TrackFlow»; traducción inglesa incluida. | Implementado; falta prueba manual ES/EN de aviso y toast. |
 | Confirmación de solicitud comercial | Se conservó sin cambios el contenido de éxito, incluida la promesa ilustrativa de contacto en 24–48 horas, conforme a la decisión expresa del usuario. | Implementado según decisión; no volver a tratar el texto como cambio pendiente. |
 | Rótulo «Solicitud comercial» | Color `var(--coral)` en `application.html`. | Implementado; contraste/visual aún por revisar. |
@@ -257,13 +265,12 @@ No se repitió PageSpeed Insights: la medición registrada corresponde a la land
 
 **Estado de Flaticon:** los PNG se sirven desde `https://cdn-icons-png.flaticon.com/512/197/197593.png` (España) y `https://cdn-icons-png.flaticon.com/512/197/197560.png` (Estados Unidos); se guardaron en `assets/images/flags/`. La página enlaza la colección general de banderas de Flaticon como fuente. La página de búsqueda respondió 403 durante la consulta, por lo que no se verificaron nombre del autor, elemento exacto ni licencia/atribución específica. No se afirma que la atribución incluida satisfaga los términos de licencia; verificar antes de publicación/distribución.
 
-## Cierre de sesión
+## Cierre de sesión — versión bilingüe
 
-- Implementación: ajustes acordados aplicados en archivos de la website; M8 confirmó que todos eran obligatorios.
-- Validación técnica: parseo HTML, comprobación de IDs/anclas/rutas relativas/orden DOM/recursos locales y `git diff --check` completados; no se detectaron fallos. No se ejecutó `node --check` porque no hay runtime JS instalado.
-- Retest manual visual/navegación ES/EN: pendiente; no se declara conformidad responsive ni visual del código actualizado.
-- Retest visual de la website, pruebas de Console/Network y accesibilidad: pendientes; no se declaran ejecutadas.
-- Incidencias: hallazgos 3.1.a, 3.1.b y registro 1.6 ajustados en código, con retest pendiente. El texto comercial 5.19–5.20 permanece sin cambios por decisión expresa.
-- Evidencia anterior: `evidence/test-website/`; no se han añadido capturas de retest en esta implementación.
-- PageSpeed: se conserva el resultado previo de la landing y su fecha/URL documentadas; no se midió esta versión y no se ejecutará en el formulario.
-- Licencia de banderas: atribución genérica de fuente añadida; autoría y licencia del recurso individual no verificadas, revisar antes de publicar.
+- **Estado de implementación:** se da por completada esta versión bilingüe de la website respecto de los ajustes descritos en este registro. La portada y el formulario fueron reportados en español e inglés y probados en los cinco anchos indicados. Esto cierra la implementación solicitada, no certifica producción ni conformidad WCAG completa.
+- **Incidencia responsive residual:** se ajustó el espacio de la casilla de privacidad del formulario ES a 320 px, pero no consta el retest posterior. Los cambios previos de CTA/etiqueta también requieren retest específico para cerrar sus incidencias visuales.
+- **Formulario e idioma:** se aplicaron los cambios de visibilidad del botón Enviar, estado del botón Atrás tras el éxito, alineación de selectores e igualdad de subtítulos. La tabla de implementación distingue el cambio de código de la prueba manual no consignada.
+- **Pruebas técnicas pendientes:** revisión completa de Console/Network y almacenamiento (1.4), árbol de accesibilidad/lector de pantalla (4.8), movimiento reducido (4.10) y contraste de colores (4.11). No declarar aprobación global de accesibilidad a partir de Lighthouse.
+- **Rendimiento:** conservar las puntuaciones PageSpeed anteriores solo para su corrida y fecha. El JSON Lighthouse recibido se archiva, pero sus puntuaciones no son válidas para la landing al mostrar indicios de una página intermedia del proxy de Codespaces y una extensión; repetir en un perfil limpio verificando el contenido auditado.
+- **Evidencias:** [carpeta de evidencias](evidence/test-website/) y [JSON Lighthouse](evidence/test-website/lighthouse-trackflow-17nov2026.json). No se recibieron capturas de retest de los cambios posteriores.
+- **Alcance funcional:** el sitio sigue siendo un prototipo frontend estático; tracking, acceso/registro y solicitud comercial son simulaciones locales, sin backend ni transmisión de datos.
