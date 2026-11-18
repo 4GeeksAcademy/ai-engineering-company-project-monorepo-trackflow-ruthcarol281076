@@ -110,7 +110,7 @@
     const updateSummary=(failures)=>{summary.hidden=!failures.length; const labels={company:'Empresa',contactName:'Persona de contacto',email:'Email corporativo',phone:'Teléfono',website:'Sitio web de la empresa',country:'País de operación principal',product:'Tipo de producto',volume:'Volumen mensual estimado de envíos',services:'Servicios de interés',current3pl:'Proveedor logístico actual',comments:'Comentarios',privacy:'Política de privacidad'}; summary.textContent=failures.length?`${t('Revisa los campos señalados para poder enviar la solicitud.')} ${failures.map((key)=>t(labels[key])).join(', ')}`:'';};
     const currentFailures=()=>keys.filter((key)=>attempted.has(key)&&validators[key]());
     const updateCount=()=>{const n=fields.comments.value.length;query('#comments-count').textContent=lang()?`${n}/500 characters`:`${n}/500 caracteres`;};
-    const doSuccess=()=>{completed=true; success.hidden=false; success.focus(); submit.disabled=true; submit.classList.add('opacity-60');};
+    const doSuccess=()=>{completed=true; success.hidden=false; success.focus(); submit.disabled=true; previous.disabled=true; submit.classList.add('opacity-60'); previous.classList.add('opacity-60');};
     const closeDialog=()=>{if(dialog?.open)dialog.close();};
     const lowVolumeSelected=()=>fields.volume.value==='0-100'&&Boolean(fields.product.value);
     const openLowVolumeDialog=(fromSubmit=false)=>{pendingLowVolumeSubmit=fromSubmit;if(dialog?.showModal){if(!dialog.open)dialog.showModal();}else query('#confirm-volume').focus();};
@@ -124,7 +124,7 @@
     function stepFor(key){return Number(Object.keys(stepKeys).find((n)=>stepKeys[n].includes(key)))||1;}
     form.addEventListener('submit',(event)=>{event.preventDefault();if(!completed)maybeSubmit();});
     next.addEventListener('click',()=>{attempted=new Set([...attempted,...stepKeys[step]]);const failures=validateKeys(stepKeys[step]);if(failures.length){updateSummary(failures);focusFirst(failures[0]);return;}updateSummary(currentFailures());step=Math.min(3,step+1);renderStep();});
-    previous.addEventListener('click',()=>{updateSummary(currentFailures());step=Math.max(1,step-1);renderStep();});
+    previous.addEventListener('click',()=>{if(completed)return;updateSummary(currentFailures());step=Math.max(1,step-1);renderStep();});
     form.addEventListener('input',(event)=>{
       if(event.target===fields.comments)updateCount();
       const key=event.target.name==='services'?'services':event.target.name==='current3pl'?'current3pl':keys.find((item)=>fields[item]===event.target);
@@ -135,7 +135,7 @@
     query('#confirm-volume').addEventListener('click',()=>{const resumeSubmit=pendingLowVolumeSubmit;allowLowVolume=true;lowVolumeDismissed=false;pendingLowVolumeSubmit=false;closeDialog();if(resumeSubmit)maybeSubmit();});
     query('#cancel-volume').addEventListener('click',()=>{const wasSubmit=pendingLowVolumeSubmit;allowLowVolume=false;lowVolumeDismissed=!wasSubmit;pendingLowVolumeSubmit=false;closeDialog();fields.volume.focus();});
     dialog?.addEventListener('close',()=>{if(!completed)fields.volume.focus();});
-    form.addEventListener('reset',()=>{closeDialog();window.setTimeout(()=>{step=1;attempted=new Set();allowLowVolume=false;lowVolumeDismissed=false;pendingLowVolumeSubmit=false;completed=false;summary.hidden=true;summary.textContent='';keys.forEach((key)=>showError(key,''));success.hidden=true;submit.disabled=false;submit.classList.remove('opacity-60');updateCount();renderStep({focus:false});},0);});
+    form.addEventListener('reset',()=>{closeDialog();window.setTimeout(()=>{step=1;attempted=new Set();allowLowVolume=false;lowVolumeDismissed=false;pendingLowVolumeSubmit=false;completed=false;summary.hidden=true;summary.textContent='';keys.forEach((key)=>showError(key,''));success.hidden=true;submit.disabled=false;previous.disabled=false;submit.classList.remove('opacity-60');previous.classList.remove('opacity-60');updateCount();renderStep({focus:false});},0);});
     document.addEventListener('trackflow:languagechange',()=>{stepStatus.textContent=t(stepTitle[step]);updateCount();keys.forEach((key)=>{if(attempted.has(key))showError(key,validators[key]());});if(!summary.hidden)updateSummary(currentFailures());});
     renderStep({focus:false}); updateCount();
   };
